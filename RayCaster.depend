@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1776711649 source:c:\users\krzys\onedrive\pulpit\code 2022\raycaster\main.cpp
+	"fun.h"
+	"ZmienGlob.h"
+	"Mapa.h"
+	<iostream>
+	<conio.h>
+	<windows.h>
+	<chrono>
+	<thread>
+
+1776711822 c:\users\krzys\onedrive\pulpit\code 2022\raycaster\fun.h
+	"ZmienGlob.h"
+
+1776711080 c:\users\krzys\onedrive\pulpit\code 2022\raycaster\zmienglob.h
+
+1776710933 c:\users\krzys\onedrive\pulpit\code 2022\raycaster\mapa.h
+
+1776711822 source:c:\users\krzys\onedrive\pulpit\code 2022\raycaster\klasy.cpp
+	"fun.h"
+	"ZmienGlob.h"
+	"Mapa.h"
+	<iostream>
+	<conio.h>
+	<cmath>
+	<string>
+	<windows.h>
+
