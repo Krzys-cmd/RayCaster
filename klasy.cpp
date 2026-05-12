@@ -15,7 +15,9 @@ void gracz::akcjeGracza(){
       if(key=='c'){
         system("cls");
       }
-
+      if(key=='e'){
+        DrzwiOtworz = true ;
+      }
     }
 }
 
@@ -71,6 +73,20 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
 
     float fStartAngle=fGraczaKat-(fFOV / 2.0f);
 
+  if(gracz::fPoziomZamknieciaDrzwi>0 && gracz::DrzwiOtworz){
+    gracz::fPoziomZamknieciaDrzwi-=0.011;
+  }
+
+
+  for(int i=0; i<iloscPromieni; i++) {
+    TabDrzwi[i] = false;
+    TabScianaPozioma[i] = false;
+    TabSufit[i]=0.0;
+    TabPodloga[i]=0.0;
+    TabDystans[i]=0.0;
+
+}
+
   for(int i=0; i<iloscPromieni; i++){
     float fKatPromienia = fStartAngle+((float)i / iloscPromieni) * fFOV;
 
@@ -94,10 +110,10 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
         }
 
 
-        int TestX = (int)fXuderzenia;
+        int TestX = (int)fXuderzenia;  //generalna pozycja uderzniea na mapie
         int TestY = (int)fYuderzenia;
 
-        float fLokalneX = fXuderzenia - (float)(int)fXuderzenia;
+        float fLokalneX = fXuderzenia - (float)(int)fXuderzenia; //pzoycja uderznia w bloku
         float fLokalneY = fYuderzenia - (float)(int)fYuderzenia;
 
        if(TestX<0 || TestY<0 || TestX>=SzerMapy || TestY>=WysMapy){
@@ -111,7 +127,7 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
        else if(mapa[NumerMapy][TestY][TestX] == 2) {
 
 
-        bool bTrafienie = (TestX==0 &&  fLokalneX < 0.5f) ||
+        bool bTrafienie = (TestX==0 &&  fLokalneX < 0.5f && fLokalneY < gracz::fPoziomZamknieciaDrzwi) ||       // najepirw decyzja ktora to sciana i w zalwensoci od sciany konkretna wsporzedna musi spelnaic konekrty warunek zeby bylo wglebienie w drzwiach
                           (TestX==WysMapy-1 && fLokalneX > 0.5f)||
                           (TestY==0 && fLokalneY < 0.5f) ||
                           (TestY==SzerMapy-1 && fLokalneY > 0.5f);
@@ -134,6 +150,9 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
 
   }
 
+  if(gracz::fPoziomZamknieciaDrzwi<0){
+                           //  mapa[NumerMapy][TestY][TestX]=0;
+                          }
 
   for(int i=0; i<iloscPromieni-1; i++){
     if(TabScianaPozioma[i-1]==false&&TabScianaPozioma[i+1]==false) TabScianaPozioma[i]=false;

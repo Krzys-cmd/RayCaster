@@ -7,9 +7,6 @@
 
 
 
-
-
-
 class Silnik{
 public:
     void RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]);
@@ -17,6 +14,9 @@ public:
 
 class gracz{
 public:
+    inline static bool DrzwiOtworz = false;
+    inline static float fPoziomZamknieciaDrzwi = 1.0;
+
     void sterowanieGracza();
 
     void akcjeGracza();

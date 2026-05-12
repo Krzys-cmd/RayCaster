@@ -8,7 +8,7 @@
 #include <chrono>
 #include <thread>
 
-//dupa
+
 
 bool gra=true;
 
@@ -20,7 +20,7 @@ int main()
 
    Silnik S1;
 
-   SetConsoleOutputCP(CP_UTF8);
+   SetConsoleOutputCP(CP_UTF8);//utf 8
 
    std::cout << "\x1b[?25l";
 

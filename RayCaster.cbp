@@ -32,9 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="fun.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="Mapa.h" />
+		<Unit filename="ZmienGlob.h" />
+		<Unit filename="fun.h" />
+		<Unit filename="klasy.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

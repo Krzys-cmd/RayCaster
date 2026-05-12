@@ -26,7 +26,7 @@
 	<string>
 	<windows.h>
 
-1776711960 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
+1778614793 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"
@@ -36,14 +36,14 @@
 	<string>
 	<windows.h>
 
-1776711960 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
+1778614443 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
 	"ZmienGlob.h"
 
 1776711080 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 
-1776710933 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
+1778606793 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
 
-1776711960 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
+1778613693 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"

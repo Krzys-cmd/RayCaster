@@ -26,6 +26,6 @@ inline int mapa[iloscMap][WysMapy][SzerMapy] = {
     // ... i tak dalej, a¿ do iloscMap
 };
 
-inline float PozycjaGracza[iloscMap][iloscMap][iloscMap]{};
+
 
 #endif // MAPA_H_INCLUDED
