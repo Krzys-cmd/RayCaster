@@ -10,6 +10,8 @@
 class Silnik{
 public:
     void RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]);
+
+    void PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]);
 };
 
 class gracz{

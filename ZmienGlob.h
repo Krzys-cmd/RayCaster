@@ -3,7 +3,7 @@
 
 inline const int SzerMapy = 16;
 inline const int WysMapy = 16;
-inline const int iloscMap = 1;
+inline const int iloscMap = 2;
 inline int NumerMapy = 0;
 
 inline float fGraczX=7.0f; //pozycja x gracza

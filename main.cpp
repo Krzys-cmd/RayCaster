@@ -31,6 +31,7 @@ int main()
      gracz1.akcjeGracza();
      gracz1.sterowanieGracza();
      S1.RayCaster(mapa);
+     S1.PrzejsciaPrzezPokoje(mapa);
      g1.bufor();
 
      auto y = std::chrono::high_resolution_clock::now();//koniec czasu

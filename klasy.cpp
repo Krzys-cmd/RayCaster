@@ -12,12 +12,12 @@ void gracz::akcjeGracza(){
     if(_kbhit()){
       char key=_getch();
 
-      if(key=='c'){
-        system("cls");
-      }
-      if(key=='e'){
-        DrzwiOtworz = true ;
-      }
+          if(key == 'c'){
+            system("cls");
+          }
+          if(key == 'e'){
+            DrzwiOtworz = true ;
+          }
     }
 }
 
@@ -69,7 +69,6 @@ void gracz::sterowanieGracza(){
 }
 
 void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
-
 
     float fStartAngle=fGraczaKat-(fFOV / 2.0f);
 
@@ -128,9 +127,9 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
 
 
         bool bTrafienie = (TestX==0 &&  fLokalneX < 0.5f && fLokalneY < gracz::fPoziomZamknieciaDrzwi) ||       // najepirw decyzja ktora to sciana i w zalwensoci od sciany konkretna wsporzedna musi spelnaic konekrty warunek zeby bylo wglebienie w drzwiach
-                          (TestX==WysMapy-1 && fLokalneX > 0.5f)||
-                          (TestY==0 && fLokalneY < 0.5f) ||
-                          (TestY==SzerMapy-1 && fLokalneY > 0.5f);
+                          (TestX==WysMapy-1 && fLokalneX > 0.5f && fLokalneY < gracz::fPoziomZamknieciaDrzwi)||
+                          (TestY==0 && fLokalneY < 0.5f && fLokalneX < gracz::fPoziomZamknieciaDrzwi ) ||
+                          (TestY==SzerMapy-1 && fLokalneY > 0.5f && fLokalneX < gracz::fPoziomZamknieciaDrzwi);
 
             if(bTrafienie) {
                 bHitDoor = true;
@@ -150,9 +149,6 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
 
   }
 
-  if(gracz::fPoziomZamknieciaDrzwi<0){
-                           //  mapa[NumerMapy][TestY][TestX]=0;
-                          }
 
   for(int i=0; i<iloscPromieni-1; i++){
     if(TabScianaPozioma[i-1]==false&&TabScianaPozioma[i+1]==false) TabScianaPozioma[i]=false;
@@ -160,6 +156,30 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]){
 
   }
 
+
+}
+
+void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]){
+
+      if(gracz::fPoziomZamknieciaDrzwi < 0){
+           for(int i = 0; i < wysokEkranu; i++){
+              for(int j =0; j < szerEkranu; j++){
+                    if(mapa[NumerMapy][i][j] == 2){
+                      mapa[NumerMapy][i][j] = 3;
+                    }
+
+        } // j
+       }// i
+      }//if < 0
+
+   if(mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 3){
+
+    NumerMapy++;
+
+   }
+   if(mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 4){
+    NumerMapy--;
+   }
 
 }
 
