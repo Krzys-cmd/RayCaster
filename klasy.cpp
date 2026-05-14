@@ -173,9 +173,7 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]){
       }//if < 0
 
    if(mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 3){
-
     NumerMapy++;
-
    }
    if(mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 4){
     NumerMapy--;
