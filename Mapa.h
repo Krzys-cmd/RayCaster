@@ -43,6 +43,7 @@ inline int mapa[iloscMap][WysMapy][SzerMapy] = {
     // ... i tak dalej, a¿ do iloscMap
 };
 
+//dupa test pull
 
 
 #endif // MAPA_H_INCLUDED
