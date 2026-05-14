@@ -35,7 +35,10 @@
 		<Unit filename="Mapa.h" />
 		<Unit filename="ZmienGlob.h" />
 		<Unit filename="fun.h" />
-		<Unit filename="klasy.cpp" />
+		<Unit filename="klasy.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

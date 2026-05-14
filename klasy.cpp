@@ -1,3 +1,4 @@
+
 #include "fun.h"
 #include "ZmienGlob.h"
 #include "Mapa.h"
