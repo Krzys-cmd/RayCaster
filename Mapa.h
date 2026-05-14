@@ -40,9 +40,10 @@ inline int mapa[iloscMap][WysMapy][SzerMapy] = {
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
     },
-    // ... i tak dalej, a¿ do iloscMap
+    // ... i tak dalej, aÂ¿ do iloscMap
 };
 
+//dupa test pull
 
 
 #endif // MAPA_H_INCLUDED
