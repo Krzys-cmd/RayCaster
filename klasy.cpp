@@ -169,17 +169,25 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]){
                       mapa[NumerMapy][i][j] = 3;
                     }
 
-        } // j
-       }// i
+                } // j
+            }// i
       }//if < 0
 
    if(mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 3){
+    gracz::fPoziomZamknieciaDrzwi = 1.0;
     NumerMapy++;
+    fGraczX = TabelaPozycjiNowegoPokoju[NumerMapy].x; //pozycje na przenosznie sie do pokoju dalej
+    fGraczY = TabelaPozycjiNowegoPokoju[NumerMapy].y;
+
    }
    if(mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 4){
+    gracz::fPoziomZamknieciaDrzwi = 1.0;
     NumerMapy--;
-   }
+    fGraczX = TabelaPozycjiPowrotu[NumerMapy].x; // pozycje powrotu
+    fGraczY = TabelaPozycjiPowrotu[NumerMapy].y;
 
+   }
+std::cout<<NumerMapy;
 }
 
 void grafika::bufor(){

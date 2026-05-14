@@ -14,5 +14,15 @@
 
 1778705594 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 
-1778771004 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
+1778788077 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
+
+1778786890 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
+	"fun.h"
+	"ZmienGlob.h"
+	"Mapa.h"
+	<iostream>
+	<conio.h>
+	<cmath>
+	<string>
+	<windows.h>
 
