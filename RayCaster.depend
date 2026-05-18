@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1778704305 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
+1779098011 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"
+	"HUD.h"
 	<iostream>
 	<conio.h>
 	<windows.h>
@@ -14,7 +15,7 @@
 
 1778705594 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 
-1778788077 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
+1778788214 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
 
 1778786890 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
 	"fun.h"
@@ -25,4 +26,14 @@
 	<cmath>
 	<string>
 	<windows.h>
+
+1779098520 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\hud.h
+	"StatusBar.h"
+	<vector>
+	<string>
+
+1779094451 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\statusbar.h
+	<iostream>
+	<string>
+	<iomanip>
 

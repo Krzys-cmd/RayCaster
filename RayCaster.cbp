@@ -32,7 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="HUD.h" />
 		<Unit filename="Mapa.h" />
+		<Unit filename="StatusBar.h" />
 		<Unit filename="ZmienGlob.h" />
 		<Unit filename="fun.h" />
 		<Unit filename="klasy.cpp" />

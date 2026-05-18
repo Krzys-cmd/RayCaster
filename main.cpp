@@ -1,6 +1,7 @@
 #include "fun.h"
 #include "ZmienGlob.h"
 #include "Mapa.h"
+#include "HUD.h"
 
 #include <iostream>
 #include <conio.h>
@@ -14,6 +15,17 @@ bool gra=true;
 
 int main()
 {
+
+   HUD myGameHud;
+   float hp = 12, ammo = 30, pts = 0;
+
+
+
+
+
+
+
+
    grafika g1;
 
    gracz gracz1;
@@ -22,7 +34,7 @@ int main()
 
    SetConsoleOutputCP(CP_UTF8);//utf 8
 
-   std::cout << "\x1b[?25l";
+   std::cout << "\x1b[?25l";//ukrycie kursora
 
     while(gra){
 
@@ -33,6 +45,17 @@ int main()
      S1.RayCaster(mapa);
      S1.PrzejsciaPrzezPokoje(mapa);
      g1.bufor();
+
+        //zmiany w hp itd..........
+        myGameHud.render();
+        hp -= 0.5f;
+        ammo -= 1.0f;
+        pts += 2.0f;
+
+        myGameHud.update(hp, ammo, pts);
+
+
+
 
      auto y = std::chrono::high_resolution_clock::now();//koniec czasu
      auto czas_trwania=y-x;//roznicA
