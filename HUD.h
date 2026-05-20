@@ -3,6 +3,7 @@
 
 #include "StatusBar.h"
 #include <vector>
+#include <string>
 
 class HUD {
     StatusBar health;
@@ -37,18 +38,19 @@ public:
 
     void render() {
         std::cout << "\x1b[H";
+        std::cout << "\x1b[" + std::to_string(wysokEkranu - 5) + "H";
 
-        drawGradientLine(true); 
+        drawGradientLine(true);
 
-        std::cout << "\x1b[48;2;115;0;24m\xE2\x95\x91\x1b[0m"; 
+        std::cout << "\x1b[48;2;115;0;24m\xE2\x95\x91\x1b[0m";
 
         float currentHP = health.getValue();
-        if (currentHP > 8) std::cout << "\x1b[38;2;0;255;0m";      
-        else if (currentHP < 5) std::cout << "\x1b[38;2;255;0;0m"; 
-        else std::cout << "\x1b[38;2;255;170;0m";                 
+        if (currentHP > 8) std::cout << "\x1b[38;2;0;255;0m";
+        else if (currentHP < 5) std::cout << "\x1b[38;2;255;0;0m";
+        else std::cout << "\x1b[38;2;255;170;0m";
 
         health.draw();
-        std::cout << "\x1b[0m"; 
+        std::cout << "\x1b[0m";
 
         std::cout << "\x1b[48;2;220;0;6m\xE2\x95\x91\x1b[0m\n";
 
