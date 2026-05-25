@@ -186,18 +186,18 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
         fGraczY = TabelaPozycjiPowrotu[NumerMapy].y;
 
     }
-    std::cout << NumerMapy;
+    //std::cout << NumerMapy;
 }
 
 void grafika::bufor() {
-    std::string bufor = "\x1b[H";
+    Bufor += "\x1b[H";
 
     for (int i = 0; i < wysokEkranu; i++) {
         for (int j = 0; j < iloscPromieni; j++) {
 
             if (i < (int)TabSufit[j]) {//sufit
 
-                bufor += " ";
+                Bufor += " ";
             }
 
             else if (i == (int)TabSufit[j]) { //gorne krawedz
@@ -208,15 +208,15 @@ void grafika::bufor() {
                     if (TabScianaPozioma[j]) r *= 0.7;
 
                     if (TabDrzwi[j] == 1) {
-                        bufor += "\x1b[48;2;20;60;\x1b[38;2;20;60;0m";
+                        Bufor += "\x1b[48;2;20;60;\x1b[38;2;20;60;0m";
                     }
-                    else bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // Kolor ściany (tekst)
+                    else Bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // Kolor ściany (tekst)
 
-                    bufor += "\xE2\x96\x84"; // Znak ▄
-                    bufor += "\x1b[0m";
+                    Bufor += "\xE2\x96\x84"; // Znak ▄
+                    Bufor += "\x1b[0m";
 
                 }
-                else bufor += " ";
+                else Bufor += " ";
 
             }
             else if (i > (int)TabSufit[j] && i < (int)TabPodloga[j]) { //srodek sciany
@@ -230,9 +230,9 @@ void grafika::bufor() {
 
 
                 if (TabDrzwi[j] == 1) {
-                    bufor += "\x1b[48;2;20;60;0m \x1b[0m";
+                    Bufor += "\x1b[48;2;20;60;0m \x1b[0m";
                 }
-                else bufor += "\x1b[48;2;" + std::to_string(r) + ";0;0m \x1b[0m";
+                else Bufor += "\x1b[48;2;" + std::to_string(r) + ";0;0m \x1b[0m";
 
             }
             else if (i == (int)TabPodloga[j]) { //dolna krawedz
@@ -244,17 +244,17 @@ void grafika::bufor() {
                     int szary = (int)mapuj(i, wysokEkranu / 2, wysokEkranu, 10.0f, 100.0f);
 
                     if (TabDrzwi[j] == 1) {
-                        bufor += "\x1b[38;2;20;60;0m";
+                        Bufor += "\x1b[38;2;20;60;0m";
                     }
                     else {
-                        bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // góra (ściana)
+                        Bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // góra (ściana)
 
                     }
 
 
-                    bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m"; // dół (podłoga)
-                    bufor += "\xE2\x96\x80"; // ▀
-                    bufor += "\x1b[0m";
+                    Bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m"; // dół (podłoga)
+                    Bufor += "\xE2\x96\x80"; // ▀
+                    Bufor += "\x1b[0m";
 
 
 
@@ -265,27 +265,39 @@ void grafika::bufor() {
                     if (TabScianaPozioma[j] == true)  r *= 0.7;
 
                     if (TabDrzwi[j] == 1) {
-                        bufor += "\x1b[48;2;20;60;0m \x1b[38;2;20;60;0m";
+                        Bufor += "\x1b[48;2;20;60;0m \x1b[38;2;20;60;0m";
                     }
-                    else bufor += "\x1b[48;2;" + std::to_string(r) + ";0;0m \x1b[0m";
+                    else Bufor += "\x1b[48;2;" + std::to_string(r) + ";0;0m \x1b[0m";
                 };
 
             }
             else if (i > (int)TabPodloga[j]) {//podloga
                 int szary = (int)mapuj(i, wysokEkranu / 2, wysokEkranu, 10.0f, 100.0f);
-                bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m \x1b[0m";
+                Bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m \x1b[0m";
             }
 
 
         }
-        bufor += "\n";
+        Bufor += "\n";
     }
 
-    std::cout << bufor;
+
 }
 
 float grafika::mapuj(float x, float in_min, float in_max, float out_min, float out_max) {
     if (x < in_min) x = in_min;
     if (x > in_max) x = in_max;
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void grafika::wypiszBufor(){
+
+
+
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD written;
+    WriteFile(hOut, Bufor.c_str(), (DWORD)Bufor.size(), &written, nullptr);
+
+  //std::cout<<Bufor;
+     Bufor.clear();
 }

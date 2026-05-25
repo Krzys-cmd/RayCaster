@@ -49,7 +49,7 @@ int main()
         //zmiany w hp itd..........
         myGameHud.render();
         stick.render();
-       
+
         if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
             attack = true;
         }
@@ -66,7 +66,8 @@ int main()
         pts += 2.0f;
 
         myGameHud.update(hp, ammo, pts);
-        
+
+        g1.wypiszBufor();
 
 
 

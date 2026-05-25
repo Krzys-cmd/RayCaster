@@ -1,6 +1,8 @@
 #ifndef ZMIENGLOB_H_INCLUDED
 #define ZMIENGLOB_H_INCLUDED
 
+#include <string>
+
 inline const int SzerMapy = 16;
 inline const int WysMapy = 16;
 inline const int iloscMap = 2;
@@ -24,6 +26,6 @@ inline bool TabScianaPozioma[iloscPromieni];
 inline bool TabDrzwi[iloscPromieni];
 
 inline bool attack=false;
-
+inline std::string Bufor;
 
 #endif // ZMIENGLOB_H_INCLUDED

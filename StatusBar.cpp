@@ -1,4 +1,5 @@
 #include "StatusBar.h"
+#include "ZmienGlob.h"
 #include <iostream>
 #include <iomanip>
 
