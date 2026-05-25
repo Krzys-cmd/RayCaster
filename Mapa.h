@@ -1,4 +1,4 @@
-#ifndef MAPA_H_INCLUDED
+﻿#ifndef MAPA_H_INCLUDED
 #define MAPA_H_INCLUDED
 
 inline int mapa[iloscMap][WysMapy][SzerMapy] = {
@@ -43,9 +43,9 @@ inline int mapa[iloscMap][WysMapy][SzerMapy] = {
     // ... i tak dalej, a¿ do iloscMap
 };
 
-struct PozycjeGracza{
-float x;
-float y;
+struct PozycjeGracza {
+    float x;
+    float y;
 };
 
 
