@@ -35,14 +35,24 @@
 		<Unit filename="HUD.cpp" />
 		<Unit filename="HUD.h" />
 		<Unit filename="Mapa.h" />
+		<Unit filename="PozycjeZombie.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="StatusBar.cpp" />
 		<Unit filename="StatusBar.h" />
 		<Unit filename="Weapon.cpp" />
 		<Unit filename="Weapon.h" />
 		<Unit filename="ZmienGlob.h" />
+		<Unit filename="ZombieKlatki.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="fun.h" />
 		<Unit filename="klasy.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="zombie.cpp" />
+		<Unit filename="zombie.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

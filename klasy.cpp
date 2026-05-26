@@ -189,7 +189,7 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
     //std::cout << NumerMapy;
 }
 
-void grafika::bufor() {
+void grafika::BuforMapa() {
     Bufor += "\x1b[H";
 
     for (int i = 0; i < wysokEkranu; i++) {

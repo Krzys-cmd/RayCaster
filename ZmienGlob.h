@@ -2,6 +2,8 @@
 #define ZMIENGLOB_H_INCLUDED
 
 #include <string>
+#include <vector>
+#include "zombie.h"
 
 inline const int SzerMapy = 16;
 inline const int WysMapy = 16;
@@ -27,5 +29,6 @@ inline bool TabDrzwi[iloscPromieni];
 
 inline bool attack=false;
 inline std::string Bufor;
+inline std::vector<ZombieStruk> listaZombie;
 
 #endif // ZMIENGLOB_H_INCLUDED

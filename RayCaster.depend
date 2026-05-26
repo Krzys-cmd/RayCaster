@@ -1,25 +1,29 @@
 # depslib dependency file v1.0
-1779732285 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
+1779814752 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"
 	"HUD.h"
 	"Weapon.h"
+	"PozycjeZombie.h"
+	"zombie.h"
 	<iostream>
 	<conio.h>
 	<windows.h>
 	<chrono>
 	<thread>
 
-1779732150 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
+1779813537 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
 	"ZmienGlob.h"
 
-1779732570 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
+1779813686 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 	<string>
+	<vector>
+	"zombie.h"
 
-1779731781 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
+1779818069 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
 
-1779732829 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
+1779813487 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
 	"ZmienGlob.h"
 	"Mapa.h"
 	<iostream>
@@ -48,7 +52,7 @@
 	<iostream>
 	<string>
 
-1779734315 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\hud.cpp
+1779814554 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\hud.cpp
 	"ZmienGlob.h"
 	<iostream>
 	<string>
@@ -58,4 +62,29 @@
 	"ZmienGlob.h"
 	<iostream>
 	<iomanip>
+
+1779815401 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.h
+	<iostream>
+	<string>
+	<vector>
+	<thread>
+	<chrono>
+	<sstream>
+	<conio.h>
+	<windows.h>
+	<cmath>
+	<algorithm>
+
+1779815178 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\pozycjezombie.h
+	<vector>
+	"zombie.h"
+
+1779818231 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.cpp
+	"zombie.h"
+	"ZombieKlatki.h"
+	"cmath"
+	"algorithm"
+	"ZmienGlob.h"
+
+1779809205 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombieklatki.h
 

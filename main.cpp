@@ -3,6 +3,8 @@
 #include "Mapa.h"
 #include "HUD.h"
 #include "Weapon.h"
+#include "PozycjeZombie.h"
+#include "zombie.h"
 
 #include <iostream>
 #include <conio.h>
@@ -10,7 +12,6 @@
 #include <chrono>
 #include <thread>
 
-//test pulla
 
 bool gra = true;
 
@@ -25,14 +26,12 @@ int main()
 
 
 
-
+    ZombieRenderer z1;
     grafika g1;
-
     gracz gracz1;
-
     Silnik S1;
 
-    SetConsoleOutputCP(CP_UTF8);//utf 8
+    SetConsoleOutputCP(CP_UTF8);// //utf 8
 
     std::cout << "\x1b[?25l";//ukrycie kursora
 
@@ -40,32 +39,36 @@ int main()
 
         auto x = std::chrono::high_resolution_clock::now();//poczatek czasu
 
+        std::vector<ZombieStruk> ListaZombie = ListaZombieDlaMapy(NumerMapy);//vectro z pozcyajmi zombie
+
         gracz1.akcjeGracza();
         gracz1.sterowanieGracza();
         S1.RayCaster(mapa);
         S1.PrzejsciaPrzezPokoje(mapa);
-        g1.bufor();
+        g1.BuforMapa();
+        z1.ZombieBufor(ListaZombie);
 
         //zmiany w hp itd..........
-        myGameHud.render();
-        stick.render();
+                                            myGameHud.render();
 
-        if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
-            attack = true;
-        }
-        else {
-            attack = false;
-        }
+                                                        stick.render();
 
-           stick.update(attack);
+                                                        if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
+                                                            attack = true;
+                                                        }
+                                                        else {
+                                                            attack = false;
+                                                        }
 
-            stick.render();
+                                                           stick.update(attack);
 
-        hp -= 0.5f;
-        ammo -= 1.0f;
-        pts += 2.0f;
+                                                            stick.render();
 
-        myGameHud.update(hp, ammo, pts);
+                                            hp -= 0.5f;
+                                            ammo -= 1.0f;
+                                            pts += 2.0f;
+
+                                            myGameHud.update(hp, ammo, pts);
 
         g1.wypiszBufor();
 

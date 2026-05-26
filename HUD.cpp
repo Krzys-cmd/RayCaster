@@ -1,5 +1,6 @@
 ﻿#include "HUD.h"
 #include "ZmienGlob.h"
+
 #include <iostream>
 #include <string>
 HUD::HUD() : health("HP  ", 12), ammo("AMMO", 30), points("POINTS", 50), width(19) {}
