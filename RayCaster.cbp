@@ -47,6 +47,10 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="fun.h" />
+		<Unit filename="grafika.cpp" />
+		<Unit filename="grafika.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="klasy.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="zombie.cpp" />

@@ -28,7 +28,9 @@ inline bool TabScianaPozioma[iloscPromieni];
 inline bool TabDrzwi[iloscPromieni];
 
 inline bool attack=false;
+
 inline std::string Bufor;
 inline std::vector<ZombieStruk> listaZombie;
+inline bool klatka = 0;
 
 #endif // ZMIENGLOB_H_INCLUDED

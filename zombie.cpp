@@ -3,6 +3,7 @@
 #include "cmath"
 #include "algorithm"
 #include "ZmienGlob.h"
+#include "Mapa.h"
 
 KolorRGB ZombieRenderer::PobierzBazowyKolor(int idKoloru) {
     switch (idKoloru) {
@@ -44,11 +45,35 @@ std::string ZombieRenderer::PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc
 void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     float fWektorX = z.x - fGraczX;
     float fWektorY = z.y - fGraczY;
+    float fSzybChodZom = 0.005;
 
     z.dystans = std::sqrt(fWektorX * fWektorX + fWektorY * fWektorY);
     if (z.dystans < 0.1f) z.dystans = 0.1f;
 
     float fKatDoZombie = std::atan2(fWektorX, fWektorY);
+    float fKatDoGracza = std::atan2(fGraczX - z.x, fGraczY - z.y);
+
+    if(z.dystans < 5.0f && z.dystans > 1.0f){//chodznie
+        z.stan = WALK;
+
+        float fDeltaZomX = sinf(fKatDoGracza) * fSzybChodZom;
+        float fDeltaZomY = cosf(fKatDoGracza) * fSzybChodZom;
+
+        float fNoweX = z.x + fDeltaZomX;
+        float fNoweY = z.y + fDeltaZomY;
+
+        if (fNoweX >= 0 && fNoweX < SzerMapy) {
+            if (mapa[NumerMapy][(int)z.y][(int)(z.x + fDeltaZomX)] != 1) {
+                z.x += fDeltaZomX;
+            }
+        }
+
+        if (fNoweY >= 0 && fNoweY < WysMapy) {
+            if (mapa[NumerMapy][(int)(z.y + fDeltaZomY)][(int)z.x] != 1) {
+                z.y += fDeltaZomY;
+            }
+        }
+    }//chodzenie
 
     float fRoznicaKata = fKatDoZombie - fGraczaKat;
     while (fRoznicaKata < -3.14159f) fRoznicaKata += 2.0f * 3.14159f;
@@ -123,8 +148,8 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
             if (noweI2 >= RozmairZombie) noweI2 = RozmairZombie - 1;
             if (noweJ  >= RozmairZombie) noweJ  = RozmairZombie - 1;
 
-            int kolorGora = KlatkiZombie[0][0][noweI][noweJ];
-            int kolorDol = KlatkiZombie[0][0][noweI2][noweJ];
+            int kolorGora = KlatkiZombie[z.stan][klatka][noweI][noweJ];
+            int kolorDol = KlatkiZombie[z.stan][klatka][noweI2][noweJ];
 
             if (kolorDol == 0 && kolorGora == 0) {
                 Bufor += "\033[0m";

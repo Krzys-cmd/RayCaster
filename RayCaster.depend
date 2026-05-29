@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1779882930 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
+1780072082 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"
@@ -7,23 +7,24 @@
 	"Weapon.h"
 	"PozycjeZombie.h"
 	"zombie.h"
+	"grafika.h"
 	<iostream>
 	<conio.h>
 	<windows.h>
 	<chrono>
 	<thread>
 
-1779882930 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
+1780065819 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
 	"ZmienGlob.h"
 
-1779813686 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
+1780067474 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 	<string>
 	<vector>
 	"zombie.h"
 
 1780048129 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
 
-1780047461 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
+1780066155 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
 	"ZmienGlob.h"
 	"Mapa.h"
 	<iostream>
@@ -44,14 +45,14 @@
 	<string>
 	<chrono>
 
-1779882930 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\weapon.cpp
+1780067718 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\weapon.cpp
 	"ZmienGlob.h"
 	"Weapon.h"
 	<thread>
 	<chrono>
 	<iostream>
 
-1779882930 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\hud.cpp
+1780067523 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\hud.cpp
 	"ZmienGlob.h"
 	<iostream>
 	<string>
@@ -64,7 +65,7 @@
 	<sstream>
 	<iomanip>
 
-1779815401 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.h
+1780067474 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.h
 	<iostream>
 	<string>
 	<vector>
@@ -76,16 +77,28 @@
 	<cmath>
 	<algorithm>
 
-1780048077 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\pozycjezombie.h
+1780072082 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\pozycjezombie.h
 	<vector>
 	"zombie.h"
+	"ZmienGlob.h"
 
-1780049199 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.cpp
+1780072082 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.cpp
 	"zombie.h"
 	"ZombieKlatki.h"
 	"cmath"
 	"algorithm"
 	"ZmienGlob.h"
+	"Mapa.h"
 
 1779809205 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombieklatki.h
+
+1780066003 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\grafika.h
+
+1780072129 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\grafika.cpp
+	"ZmienGlob.h"
+	"grafika.h"
+	"Mapa.h"
+	"fun.h"
+	"PozycjeZombie.h"
+	<windows.h>
 

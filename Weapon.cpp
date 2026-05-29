@@ -12,16 +12,16 @@ Weapon::Weapon(std::string weaponName)
 void Weapon::render() const {
     int startY = wysokEkranu - 19;
     int startX = (szerEkranu / 2)+10 ;
-   
+
     const char* T = "\x1b[0m  ";                     // Przezroczysty
     const char* j = "\x1b[48;2;139;69;19m  ";        // Jasny br¹z
     const char* s = "\x1b[48;2;104;52;14m  ";        //sredni
-    const char* c = "\x1b[48;2;70;35;10m  ";         // Ciemny br¹z 
-    
-    const char* p = "\x1b[48;2;255;128;0m  ";      // Pomarañczowy 
-    const char* cp = "\x1b[48;2;200;80;0m  ";       // Ciemniejszy pomarañczowy 
-    const char* cz = "\x1b[48;2;220;20;20m  ";      // Czerwony 
-    const char* cb = "\x1b[48;2;35;15;5m  ";        // Czarno-br¹zowy 
+    const char* c = "\x1b[48;2;70;35;10m  ";         // Ciemny br¹z
+
+    const char* p = "\x1b[48;2;255;128;0m  ";      // Pomarañczowy
+    const char* cp = "\x1b[48;2;200;80;0m  ";       // Ciemniejszy pomarañczowy
+    const char* cz = "\x1b[48;2;220;20;20m  ";      // Czerwony
+    const char* cb = "\x1b[48;2;35;15;5m  ";        // Czarno-br¹zowy
 
     //bez ataku
     const char* attack_1[20][16] = {
@@ -122,7 +122,7 @@ void Weapon::render() const {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 16; x++) {
                 if (attack_1[y][x] != T) {
-                  
+
                     Bufor += "\x1b[" + std::to_string(startY + y) + ";" + std::to_string(startX + (x * 2)) + "H" + attack_1[y][x];
                 }
             }

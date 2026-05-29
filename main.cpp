@@ -5,6 +5,7 @@
 #include "Weapon.h"
 #include "PozycjeZombie.h"
 #include "zombie.h"
+#include "grafika.h"
 
 #include <iostream>
 #include <conio.h>
@@ -18,11 +19,14 @@ bool gra = true;
 
 int main()
 {
+    auto startTime = std::chrono::high_resolution_clock::now();
+
 
     HUD myGameHud;
     float hp = 12, ammo = 30, pts = 0;
     Weapon stick("w");
 
+    InicjujZombie(NumerMapy);
 
     ZombieRenderer z1;
     grafika g1;
@@ -36,24 +40,24 @@ int main()
 
         auto x = std::chrono::high_resolution_clock::now();//poczatek czasu
 
-        std::vector<ZombieStruk> ListaZombie = ListaZombieDlaMapy(NumerMapy);//vectro z pozcyajmi zombie
+        klatka = ((x-startTime) / std::chrono::milliseconds(1000)) % 2 == 0;
+
 
         gracz1.akcjeGracza();
         gracz1.sterowanieGracza();
 
-        bool attack = (GetAsyncKeyState(VK_SPACE) & 0x8000);
-        stick.update(attack);
+                bool attack = (GetAsyncKeyState(VK_SPACE) & 0x8000);
+                stick.update(attack);
 
-        hp -= 0.5f;
-        ammo -= 1.0f;
-        pts += 2.0f;
-        myGameHud.update(hp, ammo, pts);
+                hp -= 0.5f;
+                ammo -= 1.0f;
+                pts += 2.0f;
+                myGameHud.update(hp, ammo, pts);
 
         S1.RayCaster(mapa);
         S1.PrzejsciaPrzezPokoje(mapa);
-        g1.bufor();
         g1.BuforMapa();
-        z1.ZombieBufor(ListaZombie);
+        z1.ZombieBufor(listaZombie);
 
         stick.render();
         myGameHud.render();

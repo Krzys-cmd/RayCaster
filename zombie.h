@@ -27,9 +27,9 @@ struct ZombieStruk {
     float y;               // pozycja y na mapie
     StanZombie stan;       // stan animacji
     int klatka;            // klatka (0 lub 1)
-    float dystans;         // odleg³oœæ od gracza
+    float dystans;         // odlegloœæ od gracza
     int srodekX;           // Numer kolumny (promienia) na ekranie, gdzie wypada œrodek Zombie
-    bool widoczny;         // Flaga okreœlaj¹ca, czy Zombie znajduje siê w FOV gracza
+    bool widoczny;         // Flaga okreslajaca, czy Zombie znajduje sie w FOV gracza
 };
 
 class ZombieRenderer {
@@ -39,7 +39,6 @@ public:
     std::string bufor;
     float odleglosc;
     StanZombie obecnyStan;
-    int klatkaAnimacji;
     int licznikPetli;
 
     KolorRGB PobierzBazowyKolor(int idKoloru);
