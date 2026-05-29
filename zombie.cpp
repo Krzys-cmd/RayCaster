@@ -74,6 +74,9 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
             }
         }
     }//chodzenie
+    else{
+        z.stan = IDLE;      ////////////////////////////////////////////tutaj stan
+    }
 
     float fRoznicaKata = fKatDoZombie - fGraczaKat;
     while (fRoznicaKata < -3.14159f) fRoznicaKata += 2.0f * 3.14159f;
