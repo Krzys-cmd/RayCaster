@@ -9,8 +9,8 @@ KolorRGB ZombieRenderer::PobierzBazowyKolor(int idKoloru) {
         case 1:  return { 55, 145,  55 }; // Zielony (Skóra)
         case 2:  return { 190,  15,  15 }; // Czerwony (Krew)
         case 3:  return { 110,  75,  35 }; // Br¹zowy (Tunika)
-        //case 4:  return { 150, 150, 150 }; // Szary (Koœci)
-        case 4:  return  { 190,  15,  15};
+        case 4:  return { 150, 150, 150 }; // Szary (Koœci)
+        //case 4:  return  { 190,  15,  15};
         default: return {   0,   0,   0 }; // Czarny
     }
 }
@@ -55,7 +55,7 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     while (fRoznicaKata >  3.14159f) fRoznicaKata -= 2.0f * 3.14159f;
 
 
-    float skala = 5.0f / z.dystans;
+    float skala = 8.0f / z.dystans;
     int polszerokoscZombie = static_cast<int>(32.0f * skala) / 2;
 
     z.srodekX = static_cast<int>(
@@ -77,8 +77,10 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
     if (!z.widoczny) return;
     const char* polBlok = "\xE2\x96\x84";
 
-    float skalaX = 5.0f / z.dystans;
-    float skalaY = 2.8f / z.dystans;
+    float skalaX = 3.2f / z.dystans;
+    float skalaY = 2.0f / z.dystans;
+
+
 
     int nowyRozmiarX = static_cast<int>(std::round((float)RozmairZombie * skalaX));
     int nowyRozmiarY = static_cast<int>(std::round((float)RozmairZombie * skalaY));
@@ -86,10 +88,14 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
     if (nowyRozmiarY > 64) nowyRozmiarY = 64;
 
     int StartPromien = z.srodekX - (nowyRozmiarX / 2);
-    int StartY = (wysokEkranu / 2) - (nowyRozmiarY / 2);
+    int StartY = (wysokEkranu /2 ) - (nowyRozmiarY / 2);
+
+
     if (StartY < 0) StartY = 0;
 
-    for (int i = 0; i < nowyRozmiarY; i ++) {
+     int test = std::min(nowyRozmiarY, wysokEkranu - StartY);
+
+    for (int i = 0; i < test; i ++) {
 
         int aktualnyY = StartY + i;
         if (aktualnyY >= wysokEkranu) break;

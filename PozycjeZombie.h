@@ -8,7 +8,7 @@ inline std::vector<ZombieStruk> ListaZombieDlaMapy(int pietro) {
     std::vector<ZombieStruk> tymczasowyWektor;
 
     if (pietro == 0) { // Parter
-        tymczasowyWektor.push_back({ 8.5f,  5.5f,  IDLE,  0 });
+        tymczasowyWektor.push_back({ 8.5f,  6.0f,  IDLE,  0 });
         tymczasowyWektor.push_back({ 12.2f, 8.4f,  IDLE,  0 });
     }
     else if (pietro == 1) { // Pierwsze piêtro

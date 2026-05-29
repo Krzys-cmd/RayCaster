@@ -190,7 +190,7 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
 }
 
 void grafika::bufor() {}
-    
+
 void grafika::BuforMapa() {
         Bufor += "\x1b[H";
 
