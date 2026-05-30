@@ -22,8 +22,8 @@ float StatusBar::getValue() const {
 void StatusBar::stats() const {
     std::ostringstream oss;
 
-    oss << "\x1b[48;2;38;7;11m" << std::left << std::setw(7) << name << ": "
-        << std::right << std::setw(3) << (int)currentValue << "/" 
+    oss << "\x1b[48;2;38;7;11m" << std::left << std::setw(6) << name << ": "
+        << std::right << std::setw(3) << (int)currentValue << "/"
         << std::left << std::setw(3) << (int)maxValue << "\x1b[0m";
     Bufor += oss.str();
 }
@@ -31,9 +31,9 @@ void StatusBar::stats() const {
 void StatusBar::draw() const {
     Bufor += "\x1b[48;2;38;7;11m\xE2\x99\xA5  [";
 
-    int maxBlocks = 12; 
+    int maxBlocks = 12;
 
-    if (maxValue <= 0) return; 
+    if (maxValue <= 0) return;
 
     float ratio = currentValue / maxValue;
     if (ratio < 0.0f) ratio = 0.0f;

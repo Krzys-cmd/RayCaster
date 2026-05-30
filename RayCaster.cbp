@@ -46,6 +46,8 @@
 		<Unit filename="ZombieKlatki.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="ekrany.cpp" />
+		<Unit filename="ekrany.h" />
 		<Unit filename="fun.h" />
 		<Unit filename="grafika.cpp" />
 		<Unit filename="grafika.h">

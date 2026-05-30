@@ -6,7 +6,7 @@
 #include "PozycjeZombie.h"
 #include "zombie.h"
 #include "grafika.h"
-#include "ekrany.h" 
+#include "ekrany.h"
 
 #include <iostream>
 #include <conio.h>
@@ -21,7 +21,7 @@ int main()
     auto startTime = std::chrono::high_resolution_clock::now();
 
     HUD myGameHud;
-    float ammo = 30.0f, pts = 0.0f;
+
     Weapon stick("w");
 
     InicjujZombie(NumerMapy);
@@ -30,6 +30,7 @@ int main()
     grafika g1;
     gracz gracz1;
     Silnik S1;
+    Pocisk p1(20.0f);
 
     SetConsoleOutputCP(CP_UTF8);
     std::cout << "\x1b[?25l";
@@ -53,6 +54,8 @@ int main()
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
+    system("cls");
+
     while (gra) {
         auto x = std::chrono::high_resolution_clock::now();
 
@@ -62,8 +65,11 @@ int main()
         gracz1.akcjeGracza();
         gracz1.sterowanieGracza();
 
+
         bool attack = (GetAsyncKeyState(VK_SPACE) & 0x8000);
         stick.update(attack);
+        p1.Strzal(stick, listaZombie);  // logika strza³u
+        p1.Aktualizuj(listaZombie);     // ruch kuli
 
         //test
         //ammo -= 0.05f;
@@ -93,7 +99,7 @@ int main()
 
                 if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
                     if (zycia > 0) {
-  
+
                         HpGracz = 100.0f;
                         wEkranie = false;
                     }
@@ -101,11 +107,11 @@ int main()
                         if (wyborMenu == 0) {
                             zycia = 3;
                             HpGracz = 100.0f;
-                            ammo = 30.0f;
+                            ammo = 8.0f;
                             pts = 0.0f;
                             NumerMapy = 0;
-                            // fGraczX = 2.5f; 
-                            // fGraczY = 1.5f;
+                             fGraczX = 2.5f;
+                             fGraczY = 1.5f;
                             wEkranie = false;
                         }
                         else if (wyborMenu == 1) {
@@ -120,7 +126,7 @@ int main()
                 g1.wypiszBufor();
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
-        }
+            }
 
         S1.RayCaster(mapa);
         S1.PrzejsciaPrzezPokoje(mapa);
@@ -129,6 +135,7 @@ int main()
         z1.ZombieBufor(listaZombie);
         stick.render();
         myGameHud.render();
+        p1.Renderuj();
 
         g1.wypiszBufor();
 

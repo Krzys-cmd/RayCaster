@@ -4,8 +4,13 @@
 #include <vector>
 #include "zombie.h"
 #include "ZmienGlob.h"
+inline bool ZombieZainicjowane[iloscMap] = {false};
 
 inline void InicjujZombie(int pietro) {
+    if (ZombieZainicjowane[pietro]) {
+        return;
+    }
+
     listaZombie.clear();
     if (pietro == 0) {
         listaZombie.push_back({ 8.5f,  6.0f,  IDLE, 0, true });
@@ -18,6 +23,7 @@ inline void InicjujZombie(int pietro) {
     else if (pietro == 2) {
         listaZombie.push_back({ 1.5f,  1.5f,  WALK, 0, true });
     }
-}
 
+    ZombieZainicjowane[pietro] = true;
+}
 #endif

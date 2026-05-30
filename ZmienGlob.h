@@ -10,10 +10,14 @@ inline const int WysMapy = 16;
 inline const int iloscMap = 2;
 inline int NumerMapy = 0;
 
+
 inline float HpGracz = 100.0f;
-inline float fGraczX = 7.0f; //pozycja x gracza
-inline float fGraczY = 6.0f; //pzoycja y gracza
-inline float fGraczaKat = 3.14159f; //kat patrzenia gracza
+inline float ammo = 8.0f;
+inline float pts = 0.0f;
+
+inline float fGraczX = 2.5f; //pozycja x gracza
+inline float fGraczY = 1.5f; //pzoycja y gracza
+inline float fGraczaKat = 2 * 3.14159f; //kat patrzenia gracza
 inline float fFOV = 3.14159f / 3.0f; //pole widzenia gracza
 
 inline float PI = 3.14159f;

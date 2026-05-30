@@ -3,6 +3,8 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <algorithm>
+#include <cmath>
 
 Weapon::Weapon(std::string weaponName)
     : name(weaponName), attackFrame(0) {
@@ -159,8 +161,10 @@ void Weapon::render() const {
         }
     }
     Bufor += "\x1b[0m";
-}
 
+
+
+}
 
 void Weapon::update(bool isAttacking) {
     // Pobierz aktualny czas
@@ -170,7 +174,8 @@ void Weapon::update(bool isAttacking) {
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastFrameTime).count();
 
     // Jeœli gracz klika atak i jeszcze nie zaczêliœmy animacji (jest 0), zacznij natychmiast
-    if (isAttacking && attackFrame == 0) {
+    if (isAttacking && attackFrame == 0 && ammo > 0) {
+        ammo--;
         attackFrame = 1;
         lastFrameTime = currentTime; // Zresetuj zegar
     }
@@ -188,4 +193,141 @@ void Weapon::update(bool isAttacking) {
             }
         }
     }
+}
+
+Pocisk::Pocisk(float obrazenia) : obra(obrazenia) {}
+
+void Pocisk::RysujKule(const DanePocisku& k) {
+
+        int rozmiar = std::max(1, (int)(6.0f / (k.dystans + 0.5f)));
+        int ekranX = (int)(k.x * szerEkranu);
+        int ekranY = wysokEkranu / 2;
+
+               for (int i = -rozmiar/2; i <= rozmiar/2; i++) {
+                    int y = ekranY + i;
+                    if (y < 0 || y >= wysokEkranu) continue;
+
+                    Bufor += "\033[" + std::to_string(y + 1) + ";" +
+                             std::to_string(ekranX + 1) + "H";
+
+                    int jasnosc = std::min(255, (int)(255.0f / (k.dystans + 0.5f) * 3.0f));
+                    Bufor += "\x1b[48;2;" + std::to_string(jasnosc) + ";" +
+                             std::to_string(jasnosc/2) + ";0m";
+
+                    for (int j = -rozmiar/2; j <= rozmiar/2; j++) {
+                        int x = ekranX + j;
+                        if (x >= 0 && x < szerEkranu) Bufor += " ";
+                    }
+                    Bufor += "\x1b[0m";
+                }
+}
+
+void Pocisk::RysujWybuch(const DanePocisku& k) {
+    int ekranX  = (int)(k.x * szerEkranu);
+    int ekranY  = wysokEkranu / 2;
+    int maxRozmiar = std::max(2, (int)(8.0f / (k.dystans + 0.5f) * 2.0f));
+
+    int rozmiar;
+    if (k.klatkaWybuchu <= 2)
+        rozmiar = (k.klatkaWybuchu + 1) * maxRozmiar / 3;
+    else
+        rozmiar = (6 - k.klatkaWybuchu) * maxRozmiar / 3;
+
+    if (rozmiar < 1) rozmiar = 1;
+
+    int r, g, b;
+    if      (k.klatkaWybuchu <= 1) { r=255; g=200; b=0; }
+    else if (k.klatkaWybuchu <= 3) { r=255; g=80;  b=0; }
+    else                           { r=150; g=30;  b=0; }
+
+    for (int j = -rozmiar; j <= rozmiar; j++) {
+        int y = ekranY + j;
+        if (y < 0 || y >= wysokEkranu) continue;
+
+        Bufor += "\033[" + std::to_string(y + 1) + ";" +
+                 std::to_string(ekranX - rozmiar + 1) + "H";
+        Bufor += "\x1b[48;2;" + std::to_string(r) + ";" +
+                 std::to_string(g) + ";" + std::to_string(b) + "m";
+
+        for (int i = -rozmiar; i <= rozmiar; i++) {
+            int x = ekranX + i;
+            if (x >= 0 && x < szerEkranu) Bufor += " ";
+        }
+        Bufor += "\x1b[0m";
+    }
+}
+
+void Pocisk::Strzal(const Weapon& bron, std::vector<ZombieStruk>& listaZombie) {
+    static bool moznaStrzelic = true;
+
+    // Reset gdy animacja wraca do 0
+    if (bron.attackFrame == 0) {
+        moznaStrzelic = true;
+        return;
+    }
+
+    // Strzelaj tylko w klatce 3 i tylko raz na animację
+    if (bron.attackFrame != 3) return;
+    if (!moznaStrzelic) return;
+
+    moznaStrzelic = false;
+
+    DanePocisku nowa;
+    nowa.x             = 0.5f;
+    nowa.dystans       = 0.5f;
+    nowa.maxDystans    = 16.0f;
+    nowa.klatkaWybuchu = -1;
+    nowa.aktywna       = true;
+
+    int srodek = szerEkranu / 2;
+    for (auto& z : listaZombie) {
+        if (!z.widoczny) continue;
+        int pol = (int)(32.0f * (3.2f / z.dystans)) / 2;
+
+        if (z.srodekX - pol <= srodek &&
+            z.srodekX + pol >= srodek &&
+            TabDystans[srodek] >= z.dystans) {
+
+            z.hp -= obra;
+            nowa.maxDystans = z.dystans;
+        }
+    }
+
+    if (TabDystans[srodek] < nowa.maxDystans)
+        nowa.maxDystans = TabDystans[srodek];
+
+    kule.push_back(nowa);
+}
+
+void Pocisk::Aktualizuj(std::vector<ZombieStruk>& listaZombie) {
+    for (auto& k : kule) {
+        if (!k.aktywna) continue;
+
+        if (k.klatkaWybuchu >= 0) {
+            k.klatkaWybuchu++;
+            if (k.klatkaWybuchu >= 6) k.aktywna = false;
+        } else {
+            k.dystans += 0.4f;
+            if (k.dystans >= k.maxDystans) {
+                k.klatkaWybuchu = 0; // zacznij wybuch
+            }
+        }
+
+    }
+       kule.erase(
+        std::remove_if(kule.begin(), kule.end(),
+            [](const DanePocisku& k){ return !k.aktywna; }),
+        kule.end()
+    );
+}
+
+void Pocisk::Renderuj() {
+    for (const auto& k : kule) {
+        if (!k.aktywna) continue;
+        if (k.klatkaWybuchu < 0)
+            RysujKule(k);
+        else
+            RysujWybuch(k);
+    }
+    Bufor += "\x1b[0m";
 }

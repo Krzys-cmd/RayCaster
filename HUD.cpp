@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-HUD::HUD() : health("HP  ", 100.0f), ammo("AMMO", 30.0f), points("POINTS", 50.0f), width(19) {}
+HUD::HUD() : health("HP  ", 100.0f), ammo("AMMO", 8.0f), points("POINTS", 50.0f), width(19) {}
 
 void HUD::drawGradientLine(bool top) {
     for (int i = 0; i < width; i++) {

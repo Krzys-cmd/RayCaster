@@ -31,7 +31,7 @@ struct ZombieStruk {
     float dystans;         // odlegloœæ od gracza
     int srodekX;           // Numer kolumny (promienia) na ekranie, gdzie wypada œrodek Zombie
     bool widoczny;         // Flaga okreslajaca, czy Zombie znajduje sie w FOV gracza
-
+    float hp = 100.0f;
 };
 
 class ZombieRenderer {

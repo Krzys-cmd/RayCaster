@@ -190,6 +190,18 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
 
 void ZombieRenderer::ZombieBufor(std::vector<ZombieStruk>& listaZombie) {
 
+    for (const auto& z : listaZombie) {
+        if (z.hp <= 0) {
+            pts += 10.0f;
+        }
+    }
+
+    listaZombie.erase(
+        std::remove_if(listaZombie.begin(), listaZombie.end(),
+            [](const ZombieStruk& z) { return z.hp <= 0; }),
+        listaZombie.end()
+    );
+
     for (auto& z : listaZombie) {
         pozycjaZombie(z);
     }

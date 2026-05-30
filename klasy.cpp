@@ -18,6 +18,9 @@ void gracz::akcjeGracza() {
         if (key == 'e') {
             DrzwiOtworz = true;
         }
+        if (key == 'r') {
+            ammo = 8;
+        }
     }
 }
 
