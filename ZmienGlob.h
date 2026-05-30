@@ -10,10 +10,12 @@ inline const int WysMapy = 16;
 inline const int iloscMap = 2;
 inline int NumerMapy = 0;
 
+inline float HpGracz = 100.0f;
 inline float fGraczX = 7.0f; //pozycja x gracza
 inline float fGraczY = 6.0f; //pzoycja y gracza
 inline float fGraczaKat = 3.14159f; //kat patrzenia gracza
 inline float fFOV = 3.14159f / 3.0f; //pole widzenia gracza
+
 inline float PI = 3.14159f;
 
 inline const int szerEkranu = 150;
@@ -27,7 +29,7 @@ inline float TabDystans[iloscPromieni];
 inline bool TabScianaPozioma[iloscPromieni];
 inline bool TabDrzwi[iloscPromieni];
 
-inline bool attack=false;
+inline bool attack = false;
 
 inline std::string Bufor;
 inline std::vector<ZombieStruk> listaZombie;

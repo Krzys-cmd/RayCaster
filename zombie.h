@@ -27,12 +27,15 @@ struct ZombieStruk {
     float y;               // pozycja y na mapie
     StanZombie stan;       // stan animacji
     int klatka;            // klatka (0 lub 1)
+    bool CzyAtak;
     float dystans;         // odlegloœæ od gracza
     int srodekX;           // Numer kolumny (promienia) na ekranie, gdzie wypada œrodek Zombie
     bool widoczny;         // Flaga okreslajaca, czy Zombie znajduje sie w FOV gracza
+
 };
 
 class ZombieRenderer {
+float AtakZombie = 10.0f;
 public:
 
 
@@ -47,6 +50,7 @@ public:
     std::string PobierzKolorTlaANSI(int idKoloru, float jasnosc);
     std::string PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc);
 
+    void ZombieAtak(ZombieStruk& z);
     void RenderujKlatke(const ZombieStruk& z);
     void ZombieBufor(std::vector<ZombieStruk>& listaZombie);
     void pozycjaZombie(ZombieStruk& z);

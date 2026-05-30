@@ -49,16 +49,15 @@ int main()
                 bool attack = (GetAsyncKeyState(VK_SPACE) & 0x8000);
                 stick.update(attack);
 
-                hp -= 0.5f;
                 ammo -= 1.0f;
                 pts += 2.0f;
-                myGameHud.update(hp, ammo, pts);
+                myGameHud.update(HpGracz, ammo, pts);
 
         S1.RayCaster(mapa);
         S1.PrzejsciaPrzezPokoje(mapa);
         g1.BuforMapa();
         z1.ZombieBufor(listaZombie);
-
+       std::cout<<HpGracz;
         stick.render();
         myGameHud.render();
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1780072082 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
+1780146074 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"
@@ -14,17 +14,17 @@
 	<chrono>
 	<thread>
 
-1780065819 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
+1780144623 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
 	"ZmienGlob.h"
 
-1780067474 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
+1780144971 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 	<string>
 	<vector>
 	"zombie.h"
 
 1780048129 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
 
-1780066155 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
+1780145868 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
 	"ZmienGlob.h"
 	"Mapa.h"
 	<iostream>
@@ -65,7 +65,7 @@
 	<sstream>
 	<iomanip>
 
-1780067474 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.h
+1780145868 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.h
 	<iostream>
 	<string>
 	<vector>
@@ -77,12 +77,12 @@
 	<cmath>
 	<algorithm>
 
-1780072082 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\pozycjezombie.h
+1780145981 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\pozycjezombie.h
 	<vector>
 	"zombie.h"
 	"ZmienGlob.h"
 
-1780072238 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.cpp
+1780145981 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zombie.cpp
 	"zombie.h"
 	"ZombieKlatki.h"
 	"cmath"

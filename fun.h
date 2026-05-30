@@ -16,6 +16,9 @@ public:
 
 class gracz {
 public:
+
+    float AtakGracza;
+
     inline static bool DrzwiOtworz = false;
     inline static float fPoziomZamknieciaDrzwi = 1.0;
 

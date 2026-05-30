@@ -42,6 +42,21 @@ std::string ZombieRenderer::PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc
     return "38;2;" + std::to_string(r) + ";" + std::to_string(g) + ";" + std::to_string(b);
 }
 
+
+void ZombieRenderer::ZombieAtak(ZombieStruk& z){
+  z.stan = ATTACK;
+
+  if(klatka == 1 && z.CzyAtak){
+    HpGracz -= AtakZombie;
+   if(HpGracz < 0) HpGracz =0;
+   z.CzyAtak = false;
+  }
+  else if(klatka == 0){
+    z.CzyAtak = true;
+  }
+}
+
+
 void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     float fWektorX = z.x - fGraczX;
     float fWektorY = z.y - fGraczY;
@@ -53,7 +68,7 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     float fKatDoZombie = std::atan2(fWektorX, fWektorY);
     float fKatDoGracza = std::atan2(fGraczX - z.x, fGraczY - z.y);
 
-    if(z.dystans < 5.0f && z.dystans > 1.0f){//chodznie
+    if(z.dystans < 5.0f && z.dystans > 2.0f){//chodznie
         z.stan = WALK;
 
         float fDeltaZomX = sinf(fKatDoGracza) * fSzybChodZom;
@@ -74,6 +89,9 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
             }
         }
     }//chodzenie
+    else if(z.dystans <= 2.0f){
+        ZombieAtak(z);
+    }
     else{
         z.stan = IDLE;      ////////////////////////////////////////////tutaj stan
     }
