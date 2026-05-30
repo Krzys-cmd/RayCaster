@@ -198,28 +198,63 @@ void Weapon::update(bool isAttacking) {
 Pocisk::Pocisk(float obrazenia) : obra(obrazenia) {}
 
 void Pocisk::RysujKule(const DanePocisku& k) {
+    const int WysokoscKuli = 6;
+    const int SzerKuli = 6;
 
-        int rozmiar = std::max(1, (int)(6.0f / (k.dystans + 0.5f)));
-        int ekranX = (int)(k.x * szerEkranu);
-        int ekranY = wysokEkranu / 2;
+    int sprite[WysokoscKuli][SzerKuli] = {
+            { 0, 1, 1, 2, 2, 0 },
+            { 1, 3, 2, 2, 3, 1 },
+            { 2, 4, 2, 3, 4, 1 },
+            { 1, 2, 4, 2, 3, 2 },
+            { 1, 4, 3, 4, 4, 1 },
+            { 0, 2, 2, 1, 1, 0 },
+        };
 
-               for (int i = -rozmiar/2; i <= rozmiar/2; i++) {
-                    int y = ekranY + i;
-                    if (y < 0 || y >= wysokEkranu) continue;
+    auto getKolor = [](int id) -> std::string {
+        switch(id) {
+            case 1: return "\x1b[48;2;35;15;5m ";     // czarno-brązowy
+            case 2: return "\x1b[48;2;220;20;20m ";   // czerwony
+            case 3: return "\x1b[48;2;200;80;0m ";    // ciemnopomarańczowy
+            case 4: return "\x1b[48;2;255;128;0m ";   // pomarańczowy
+            case 5: return "\x1b[48;2;255;220;0m ";   // żółty (środek)
+            default: return "";
+        }
+    };
 
-                    Bufor += "\033[" + std::to_string(y + 1) + ";" +
-                             std::to_string(ekranX + 1) + "H";
+    float skala = std::max(0.3f, 3.0f / (k.dystans + 0.5f));
+    int nowyW = std::max(2, (int)(SzerKuli * skala * 2)); // *2 proporcje konsoli
+    int nowyH = std::max(1, (int)(WysokoscKuli * skala));
 
-                    int jasnosc = std::min(255, (int)(255.0f / (k.dystans + 0.5f) * 3.0f));
-                    Bufor += "\x1b[48;2;" + std::to_string(jasnosc) + ";" +
-                             std::to_string(jasnosc/2) + ";0m";
+    int ekranX = (int)(k.x * szerEkranu) - nowyW / 2;
+    int ekranY = wysokEkranu / 2 - nowyH / 2;
 
-                    for (int j = -rozmiar/2; j <= rozmiar/2; j++) {
-                        int x = ekranX + j;
-                        if (x >= 0 && x < szerEkranu) Bufor += " ";
-                    }
-                    Bufor += "\x1b[0m";
-                }
+    for (int i = 0; i < nowyH; i++) {
+        int y = ekranY + i;
+        if (y < 0 || y >= wysokEkranu) continue;
+
+        int srcRow = (int)((float)i / nowyH * WysokoscKuli);
+        if (srcRow >= WysokoscKuli) srcRow = WysokoscKuli - 1;
+
+        Bufor += "\033[" + std::to_string(y + 1) + ";" +
+                 std::to_string(std::max(1, ekranX + 1)) + "H";
+
+        for (int j = 0; j < nowyW; j++) {
+            int x = ekranX + j;
+            if (x < 0 || x >= szerEkranu) continue;
+
+            int srcCol = (int)((float)j / nowyW * SzerKuli);
+            if (srcCol >= SzerKuli) srcCol = SzerKuli - 1;
+
+            int id = sprite[srcRow][srcCol];
+
+            if (id == 0) {
+                Bufor += "\033[0m\033[1C";
+            } else {
+                Bufor += getKolor(id);
+            }
+        }
+        Bufor += "\x1b[0m";
+    }
 }
 
 void Pocisk::RysujWybuch(const DanePocisku& k) {
