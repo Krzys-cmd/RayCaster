@@ -1,4 +1,4 @@
-#include "zombie.h"
+﻿#include "zombie.h"
 #include "ZombieKlatki.h"
 #include "cmath"
 #include "algorithm"
@@ -7,12 +7,12 @@
 
 KolorRGB ZombieRenderer::PobierzBazowyKolor(int idKoloru) {
     switch (idKoloru) {
-        case 1:  return { 55, 145,  55 }; // Zielony (Skóra)
-        case 2:  return { 190,  15,  15 }; // Czerwony (Krew)
-        case 3:  return { 110,  75,  35 }; // Br¹zowy (Tunika)
-        case 4:  return { 150, 150, 150 }; // Szary (Koœci)
-        //case 4:  return  { 190,  15,  15};
-        default: return {   0,   0,   0 }; // Czarny
+    case 1:  return { 55, 145,  55 }; // Zielony (Skóra)
+    case 2:  return { 190,  15,  15 }; // Czerwony (Krew)
+    case 3:  return { 110,  75,  35 }; // Br¹zowy (Tunika)
+    case 4:  return { 150, 150, 150 }; // Szary (Koœci)
+          //case 4:  return  { 190,  15,  15};
+    default: return { 0,   0,   0 }; // Czarny
     }
 }
 
@@ -43,17 +43,17 @@ std::string ZombieRenderer::PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc
 }
 
 
-void ZombieRenderer::ZombieAtak(ZombieStruk& z){
-  z.stan = ATTACK;
+void ZombieRenderer::ZombieAtak(ZombieStruk& z) {
+    z.stan = ATTACK;
 
-  if(klatka == 1 && z.CzyAtak){
-    HpGracz -= AtakZombie;
-   if(HpGracz < 0) HpGracz =0;
-   z.CzyAtak = false;
-  }
-  else if(klatka == 0){
-    z.CzyAtak = true;
-  }
+    if (klatka == 1 && z.CzyAtak) {
+        HpGracz -= AtakZombie;
+        if (HpGracz < 0) HpGracz = 0;
+        z.CzyAtak = false;
+    }
+    else if (klatka == 0) {
+        z.CzyAtak = true;
+    }
 }
 
 
@@ -68,7 +68,7 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     float fKatDoZombie = std::atan2(fWektorX, fWektorY);
     float fKatDoGracza = std::atan2(fGraczX - z.x, fGraczY - z.y);
 
-    if(z.dystans < 5.0f && z.dystans > 2.0f){//chodznie
+    if (z.dystans < 5.0f && z.dystans > 2.0f) {//chodznie
         z.stan = WALK;
 
         float fDeltaZomX = sinf(fKatDoGracza) * fSzybChodZom;
@@ -89,16 +89,16 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
             }
         }
     }//chodzenie
-    else if(z.dystans <= 2.0f){
+    else if (z.dystans <= 2.0f) {
         ZombieAtak(z);
     }
-    else{
+    else {
         z.stan = IDLE;      ////////////////////////////////////////////tutaj stan
     }
 
     float fRoznicaKata = fKatDoZombie - fGraczaKat;
     while (fRoznicaKata < -3.14159f) fRoznicaKata += 2.0f * 3.14159f;
-    while (fRoznicaKata >  3.14159f) fRoznicaKata -= 2.0f * 3.14159f;
+    while (fRoznicaKata > 3.14159f) fRoznicaKata -= 2.0f * 3.14159f;
 
 
     float skala = 8.0f / z.dystans;
@@ -106,7 +106,7 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
 
     z.srodekX = static_cast<int>(
         (fRoznicaKata + fFOV / 2.0f) / fFOV * (float)szerEkranu
-    );
+        );
 
     // Widoczny tylko jeśli choć jeden piksel zombie jest na ekranie
     if (z.srodekX + polszerokoscZombie < 0 ||
@@ -134,14 +134,14 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
     if (nowyRozmiarY > 64) nowyRozmiarY = 64;
 
     int StartPromien = z.srodekX - (nowyRozmiarX / 2);
-    int StartY = (wysokEkranu /2 ) - (nowyRozmiarY / 2);
+    int StartY = (wysokEkranu / 2) - (nowyRozmiarY / 2);
 
 
     if (StartY < 0) StartY = 0;
 
-     int test = std::min(nowyRozmiarY, wysokEkranu - StartY);
+    int test = std::min<int>(nowyRozmiarY, wysokEkranu - StartY);
 
-    for (int i = 0; i < test; i ++) {
+    for (int i = 0; i < test; i++) {
 
         int aktualnyY = StartY + i;
         if (aktualnyY >= wysokEkranu) break;
@@ -161,13 +161,13 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
                 continue;
             }
 
-            int noweI  = static_cast<int>(i / skalaY);
-            int noweI2 = static_cast<int>((i + 1)/ skalaY);
-            int noweJ  = static_cast<int>(j / skalaX);
+            int noweI = static_cast<int>(i / skalaY);
+            int noweI2 = static_cast<int>((i + 1) / skalaY);
+            int noweJ = static_cast<int>(j / skalaX);
 
-            if (noweI  >= RozmairZombie) noweI  = RozmairZombie - 1;
+            if (noweI >= RozmairZombie) noweI = RozmairZombie - 1;
             if (noweI2 >= RozmairZombie) noweI2 = RozmairZombie - 1;
-            if (noweJ  >= RozmairZombie) noweJ  = RozmairZombie - 1;
+            if (noweJ >= RozmairZombie) noweJ = RozmairZombie - 1;
 
             int kolorGora = KlatkiZombie[z.stan][klatka][noweI][noweJ];
             int kolorDol = KlatkiZombie[z.stan][klatka][noweI2][noweJ];
@@ -195,7 +195,7 @@ void ZombieRenderer::ZombieBufor(std::vector<ZombieStruk>& listaZombie) {
     }
     std::sort(listaZombie.begin(), listaZombie.end(), [](const ZombieStruk& a, const ZombieStruk& b) {
         return a.dystans > b.dystans;
-    });
+        });
 
     for (const auto& z : listaZombie) {
         if (z.widoczny) {
@@ -203,4 +203,3 @@ void ZombieRenderer::ZombieBufor(std::vector<ZombieStruk>& listaZombie) {
         }
     }
 }
-

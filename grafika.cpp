@@ -1,4 +1,4 @@
-#include "ZmienGlob.h"
+﻿#include "ZmienGlob.h"
 #include "grafika.h"
 #include "Mapa.h"
 #include "fun.h"
@@ -8,118 +8,118 @@
 
 
 void grafika::BuforMapa() {
-        Bufor += "\x1b[H";
+    Bufor += "\x1b[H";
 
-        for (int i = 0; i < wysokEkranu; i++) {
-            for (int j = 0; j < iloscPromieni; j++) {
+    for (int i = 0; i < wysokEkranu; i++) {
+        for (int j = 0; j < iloscPromieni; j++) {
 
-                if (i < (int)TabSufit[j]) {//sufit
+            if (i < (int)TabSufit[j]) {//sufit
 
-                    Bufor += " ";
+                Bufor += " ";
+            }
+
+            else if (i == (int)TabSufit[j]) { //gorne krawedz
+                if (TabSufit[j] - (float)(int)(TabSufit[j]) < 0.5) {
+
+                    float fCien = mapuj(TabDystans[j], 0, 16, 1.0f, 0.2f);
+                    int r = (int)(255 * fCien);
+                    if (TabScianaPozioma[j]) r *= 0.7;
+
+                    if (TabDrzwi[j] == 1) {
+                        Bufor += "\x1b[48;2;20;60;\x1b[38;2;20;60;0m";
+                    }
+                    else Bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // Kolor ściany (tekst)
+
+                    Bufor += "\xE2\x96\x84"; // Znak ▄
+                    Bufor += "\x1b[0m";
+
                 }
+                else Bufor += " ";
 
-                else if (i == (int)TabSufit[j]) { //gorne krawedz
-                    if (TabSufit[j] - (float)(int)(TabSufit[j]) < 0.5) {
+            }
+            else if (i > (int)TabSufit[j] && i < (int)TabPodloga[j]) { //srodek sciany
 
-                        float fCien = mapuj(TabDystans[j], 0, 16, 1.0f, 0.2f);
-                        int r = (int)(255 * fCien);
-                        if (TabScianaPozioma[j]) r *= 0.7;
+                //int r = (int)mapuj(TabDystans[j], 0.0f, 16.0f, 255.0f, 50.0f); //mapowanie koloru
 
-                        if (TabDrzwi[j] == 1) {
-                            Bufor += "\x1b[48;2;20;60;\x1b[38;2;20;60;0m";
-                        }
-                        else Bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // Kolor ściany (tekst)
+                float fCien = mapuj(TabDystans[j], 0, 16, 1.0f, 0.2f);//mapowanie cienia
+                int r = (int)(255 * fCien);
+                if (TabScianaPozioma[j] == true)  r *= 0.7;
 
-                        Bufor += "\xE2\x96\x84"; // Znak ▄
-                        Bufor += "\x1b[0m";
+
+
+                if (TabDrzwi[j] == 1) {
+                    Bufor += "\x1b[48;2;20;60;0m \x1b[0m";
+                }
+                else Bufor += "\x1b[48;2;" + std::to_string(r) + ";0;0m \x1b[0m";
+
+            }
+            else if (i == (int)TabPodloga[j]) { //dolna krawedz
+                if (TabPodloga[j] - (float)(int)(TabPodloga[j]) < 0.5) {
+
+                    float fCien = mapuj(TabDystans[j], 0, 16, 1.0f, 0.2f);
+                    int r = (int)(255 * fCien);
+                    if (TabScianaPozioma[j]) r *= 0.7;
+                    int szary = (int)mapuj(i, wysokEkranu / 2, wysokEkranu, 10.0f, 100.0f);
+
+                    if (TabDrzwi[j] == 1) {
+                        Bufor += "\x1b[38;2;20;60;0m";
+                    }
+                    else {
+                        Bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // góra (ściana)
 
                     }
-                    else Bufor += " ";
+
+
+                    Bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m"; // dół (podłoga)
+                    Bufor += "\xE2\x96\x80"; // ▀
+                    Bufor += "\x1b[0m";
+
+
 
                 }
-                else if (i > (int)TabSufit[j] && i < (int)TabPodloga[j]) { //srodek sciany
-
-                    //int r = (int)mapuj(TabDystans[j], 0.0f, 16.0f, 255.0f, 50.0f); //mapowanie koloru
-
+                else {
                     float fCien = mapuj(TabDystans[j], 0, 16, 1.0f, 0.2f);//mapowanie cienia
                     int r = (int)(255 * fCien);
                     if (TabScianaPozioma[j] == true)  r *= 0.7;
 
-
-
                     if (TabDrzwi[j] == 1) {
-                        Bufor += "\x1b[48;2;20;60;0m \x1b[0m";
+                        Bufor += "\x1b[48;2;20;60;0m \x1b[38;2;20;60;0m";
                     }
                     else Bufor += "\x1b[48;2;" + std::to_string(r) + ";0;0m \x1b[0m";
-
-                }
-                else if (i == (int)TabPodloga[j]) { //dolna krawedz
-                    if (TabPodloga[j] - (float)(int)(TabPodloga[j]) < 0.5) {
-
-                        float fCien = mapuj(TabDystans[j], 0, 16, 1.0f, 0.2f);
-                        int r = (int)(255 * fCien);
-                        if (TabScianaPozioma[j]) r *= 0.7;
-                        int szary = (int)mapuj(i, wysokEkranu / 2, wysokEkranu, 10.0f, 100.0f);
-
-                        if (TabDrzwi[j] == 1) {
-                            Bufor += "\x1b[38;2;20;60;0m";
-                        }
-                        else {
-                            Bufor += "\x1b[38;2;" + std::to_string(r) + ";0;0m"; // góra (ściana)
-
-                        }
-
-
-                        Bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m"; // dół (podłoga)
-                        Bufor += "\xE2\x96\x80"; // ▀
-                        Bufor += "\x1b[0m";
-
-
-
-                    }
-                    else {
-                        float fCien = mapuj(TabDystans[j], 0, 16, 1.0f, 0.2f);//mapowanie cienia
-                        int r = (int)(255 * fCien);
-                        if (TabScianaPozioma[j] == true)  r *= 0.7;
-
-                        if (TabDrzwi[j] == 1) {
-                            Bufor += "\x1b[48;2;20;60;0m \x1b[38;2;20;60;0m";
-                        }
-                        else Bufor += "\x1b[48;2;" + std::to_string(r) + ";0;0m \x1b[0m";
-                    };
-
-                }
-                else if (i > (int)TabPodloga[j]) {//podloga
-                    int szary = (int)mapuj(i, wysokEkranu / 2, wysokEkranu, 10.0f, 100.0f);
-                    Bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m \x1b[0m";
-                }
-
+                };
 
             }
-            Bufor += "\n";
+            else if (i > (int)TabPodloga[j]) {//podloga
+                int szary = (int)mapuj(i, wysokEkranu / 2, wysokEkranu, 10.0f, 100.0f);
+                Bufor += "\x1b[48;2;" + std::to_string(szary) + ";" + std::to_string(szary) + ";" + std::to_string(szary) + "m \x1b[0m";
+            }
+
+
         }
-
-
+        Bufor += "\n";
     }
+
+
+}
 
 float grafika::mapuj(float x, float in_min, float in_max, float out_min, float out_max) {
-        if (x < in_min) x = in_min;
-        if (x > in_max) x = in_max;
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    }
+    if (x < in_min) x = in_min;
+    if (x > in_max) x = in_max;
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 
 void grafika::wypiszBufor() {
 
 
 
 
-        HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        DWORD written;
-        WriteFile(hOut, Bufor.c_str(), (DWORD)Bufor.size(), &written, nullptr);
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD written;
+    WriteFile(hOut, Bufor.c_str(), (DWORD)Bufor.size(), &written, nullptr);
 
-        //std::cout<<Bufor;
-        Bufor.clear();
-    }
+    //std::cout<<Bufor;
+    Bufor.clear();
+}
 
 
 void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]) {

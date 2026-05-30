@@ -3,13 +3,13 @@
 
 #include <iostream>
 #include <string>
-HUD::HUD() : health("HP  ", 12), ammo("AMMO", 8), points("POINTS", 50), width(19) {}
+
+HUD::HUD() : health("HP  ", 100.0f), ammo("AMMO", 30.0f), points("POINTS", 50.0f), width(19) {}
 
 void HUD::drawGradientLine(bool top) {
     for (int i = 0; i < width; i++) {
         int r = top ? (80 + (i * 175 / (width - 1))) : (255 - (i * 175 / (width - 1)));
         int b = top ? (30 - (i * 30 / (width - 1))) : (0 + (i * 30 / (width - 1)));
-
         Bufor += ("\x1b[48;2;" + std::to_string(r) + ";0;" + std::to_string(b) + "m");
         if (i == 0) Bufor += (top ? "\xE2\x95\x94" : "\xE2\x95\x9A");
         else if (i == width - 1) Bufor += (top ? "\xE2\x95\x97" : "\xE2\x95\x9D");
@@ -38,8 +38,9 @@ void HUD::render() {
     Bufor += "\x1b[48;2;115;0;24m\xE2\x95\x91\x1b[0m";
 
     float currentHP = health.getValue();
-    if (currentHP > 8) Bufor += "\x1b[38;2;0;255;0m";
-    else if (currentHP < 5) Bufor += "\x1b[38;2;255;0;0m";
+
+    if (currentHP > 50.0f) Bufor += "\x1b[38;2;0;255;0m";
+    else if (currentHP < 25.0f) Bufor += "\x1b[38;2;255;0;0m";
     else Bufor += "\x1b[38;2;255;170;0m";
 
     health.draw();

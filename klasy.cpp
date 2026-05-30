@@ -67,6 +67,3 @@ void gracz::sterowanieGracza() {
     }//przod tyl
 
 }
-
-
-

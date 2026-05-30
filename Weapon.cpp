@@ -1,4 +1,4 @@
-#include "ZmienGlob.h"
+ï»¿#include "ZmienGlob.h"
 #include "Weapon.h"
 #include <thread>
 #include <chrono>
@@ -11,17 +11,17 @@ Weapon::Weapon(std::string weaponName)
 
 void Weapon::render() const {
     int startY = wysokEkranu - 19;
-    int startX = (szerEkranu / 2)+10 ;
+    int startX = (szerEkranu / 2) + 10;
 
     const char* T = "\x1b[0m  ";                     // Przezroczysty
-    const char* j = "\x1b[48;2;139;69;19m  ";        // Jasny br¹z
+    const char* j = "\x1b[48;2;139;69;19m  ";        // Jasny brÂ¹z
     const char* s = "\x1b[48;2;104;52;14m  ";        //sredni
-    const char* c = "\x1b[48;2;70;35;10m  ";         // Ciemny br¹z
+    const char* c = "\x1b[48;2;70;35;10m  ";         // Ciemny brÂ¹z
 
-    const char* p = "\x1b[48;2;255;128;0m  ";      // Pomarañczowy
-    const char* cp = "\x1b[48;2;200;80;0m  ";       // Ciemniejszy pomarañczowy
+    const char* p = "\x1b[48;2;255;128;0m  ";      // PomaraÃ±czowy
+    const char* cp = "\x1b[48;2;200;80;0m  ";       // Ciemniejszy pomaraÃ±czowy
     const char* cz = "\x1b[48;2;220;20;20m  ";      // Czerwony
-    const char* cb = "\x1b[48;2;35;15;5m  ";        // Czarno-br¹zowy
+    const char* cb = "\x1b[48;2;35;15;5m  ";        // Czarno-brÂ¹zowy
 
     //bez ataku
     const char* attack_1[20][16] = {
@@ -133,7 +133,7 @@ void Weapon::render() const {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 16; x++) {
                 if (attack_2[y][x] != T) {
-                    Bufor+= "\x1b[" +std::to_string( startY + y )+ ";" +std::to_string( startX + (x * 2)) + "H" + attack_2[y][x];
+                    Bufor += "\x1b[" + std::to_string(startY + y) + ";" + std::to_string(startX + (x * 2)) + "H" + attack_2[y][x];
                 }
             }
         }
@@ -143,7 +143,7 @@ void Weapon::render() const {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 16; x++) {
                 if (attack_3[y][x] != T) {
-                    Bufor+= "\x1b[" +std::to_string( startY + y) + ";" +std::to_string( startX + (x * 2)) + "H" + attack_3[y][x];
+                    Bufor += "\x1b[" + std::to_string(startY + y) + ";" + std::to_string(startX + (x * 2)) + "H" + attack_3[y][x];
                 }
             }
         }
@@ -153,12 +153,12 @@ void Weapon::render() const {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 16; x++) {
                 if (attack_4[y][x] != T) {
-                    Bufor+= "\x1b[" +std::to_string( startY + y) + ";"+std::to_string( startX + (x * 2)) + "H" + attack_4[y][x];
+                    Bufor += "\x1b[" + std::to_string(startY + y) + ";" + std::to_string(startX + (x * 2)) + "H" + attack_4[y][x];
                 }
             }
         }
     }
-    Bufor+= "\x1b[0m";
+    Bufor += "\x1b[0m";
 }
 
 
@@ -166,23 +166,23 @@ void Weapon::update(bool isAttacking) {
     // Pobierz aktualny czas
     auto currentTime = std::chrono::steady_clock::now();
 
-    // Oblicz, ile milisekund minê³o od ostatniej zmiany klatki
+    // Oblicz, ile milisekund minÃªÂ³o od ostatniej zmiany klatki
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastFrameTime).count();
 
-    // Jeœli gracz klika atak i jeszcze nie zaczêliœmy animacji (jest 0), zacznij natychmiast
+    // JeÅ“li gracz klika atak i jeszcze nie zaczÃªliÅ“my animacji (jest 0), zacznij natychmiast
     if (isAttacking && attackFrame == 0) {
         attackFrame = 1;
         lastFrameTime = currentTime; // Zresetuj zegar
     }
-    // Jeœli animacja ju¿ trwa (jest wiêksza od 0)
+    // JeÅ“li animacja juÂ¿ trwa (jest wiÃªksza od 0)
     else if (attackFrame > 0) {
 
-        // Zmieñ klatkê TYLKO jeœli up³ynê³o np. 150 milisekund
+        // ZmieÃ± klatkÃª TYLKO jeÅ“li upÂ³ynÃªÂ³o np. 150 milisekund
         if (elapsedTime > 150) {
             attackFrame++;
-            lastFrameTime = currentTime; // Zresetuj zegar dla nastêpnej klatki
+            lastFrameTime = currentTime; // Zresetuj zegar dla nastÃªpnej klatki
 
-            // Jeœli animacja dobieg³a koñca, wróæ do pozycji 0
+            // JeÅ“li animacja dobiegÂ³a koÃ±ca, wrÃ³Ã¦ do pozycji 0
             if (attackFrame > 3) {
                 attackFrame = 0;
             }

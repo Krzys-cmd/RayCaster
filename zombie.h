@@ -1,4 +1,4 @@
-#ifndef ZOMBIE_H_INCLUDED
+ï»¿#ifndef ZOMBIE_H_INCLUDED
 #define ZOMBIE_H_INCLUDED
 #include <iostream>
 #include <string>
@@ -28,14 +28,14 @@ struct ZombieStruk {
     StanZombie stan;       // stan animacji
     int klatka;            // klatka (0 lub 1)
     bool CzyAtak;
-    float dystans;         // odlegloœæ od gracza
-    int srodekX;           // Numer kolumny (promienia) na ekranie, gdzie wypada œrodek Zombie
+    float dystans;         // odlegloÅ“Ã¦ od gracza
+    int srodekX;           // Numer kolumny (promienia) na ekranie, gdzie wypada Å“rodek Zombie
     bool widoczny;         // Flaga okreslajaca, czy Zombie znajduje sie w FOV gracza
 
 };
 
 class ZombieRenderer {
-float AtakZombie = 10.0f;
+    float AtakZombie = 10.0f;
 public:
 
 

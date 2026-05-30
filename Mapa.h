@@ -1,5 +1,4 @@
-﻿#ifndef MAPA_H_INCLUDED
-#define MAPA_H_INCLUDED
+﻿
 
 inline int mapa[iloscMap][WysMapy][SzerMapy] = {
     {
@@ -55,4 +54,3 @@ inline PozycjeGracza TabelaPozycjiNowegoPokoju[iloscMap] = {
     { 1.5f, 15.0f },  // Mapa 1
 };
 
-#endif // MAPA_H_INCLUDED

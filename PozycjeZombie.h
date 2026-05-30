@@ -1,5 +1,6 @@
 ﻿#ifndef POZYCJEZOMBIE_H_INCLUDED
 #define POZYCJEZOMBIE_H_INCLUDED
+
 #include <vector>
 #include "zombie.h"
 #include "ZmienGlob.h"
@@ -18,4 +19,5 @@ inline void InicjujZombie(int pietro) {
         listaZombie.push_back({ 1.5f,  1.5f,  WALK, 0, true });
     }
 }
+
 #endif

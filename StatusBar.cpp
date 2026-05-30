@@ -5,7 +5,6 @@
 #include <sstream>
 #include <iomanip>
 
-
 StatusBar::StatusBar(std::string name, float maxVal)
     : name(name), currentValue(maxVal), maxValue(maxVal) {
 }
@@ -24,31 +23,39 @@ void StatusBar::stats() const {
     std::ostringstream oss;
 
     oss << "\x1b[48;2;38;7;11m" << std::left << std::setw(7) << name << ": "
-        << std::right << std::setw(2) << (int)currentValue << "/"
+        << std::right << std::setw(3) << (int)currentValue << "/" 
         << std::left << std::setw(3) << (int)maxValue << "\x1b[0m";
     Bufor += oss.str();
 }
 
 void StatusBar::draw() const {
-    
     Bufor += "\x1b[48;2;38;7;11m\xE2\x99\xA5  [";
 
-    int full = (int)currentValue;
-    int max = (int)maxValue;
+    int maxBlocks = 12; 
+
+    if (maxValue <= 0) return; 
+
+    float ratio = currentValue / maxValue;
+    if (ratio < 0.0f) ratio = 0.0f;
+    if (ratio > 1.0f) ratio = 1.0f;
+
+    float scaledValue = ratio * maxBlocks;
+    int full = (int)scaledValue;
 
     for (int i = 0; i < full; i++) {
         Bufor += "\xE2\x96\x93";
     }
 
     int shadows = 0;
-    if (full > 0 && full < max) {
-        shadows = (full == max - 1) ? 1 : 2;
-        for (int i = 0; i < shadows; i++) {
+    if (full > 0 && full < maxBlocks) {
+        float reszta = scaledValue - full;
+        if (reszta > 0.5f) {
+            shadows = 1;
             Bufor += "\xE2\x96\x92";
         }
     }
 
-    int empty = max - full - shadows;
+    int empty = maxBlocks - full - shadows;
     for (int i = 0; i < empty; i++) {
         Bufor += "\xE2\x96\x91";
     }
