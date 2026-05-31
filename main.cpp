@@ -19,22 +19,22 @@ bool gra = true;
 int main()
 {
 
-    auto startTime = std::chrono::high_resolution_clock::now();
+    auto startTime = std::chrono::high_resolution_clock::now(); //zegar pomocniczy
 
     HUD myGameHud;
 
     Weapon stick("w");
 
-    InicjujZombie(NumerMapy);
+    InicjujZombie(NumerMapy);//wektor z zombie
 
     ZombieRenderer z1;
     grafika g1;
     gracz gracz1;
     Silnik S1;
-    Pocisk p1(20.0f);
+    Pocisk p1(20.0f);//dmg kuli (ataku gracza)
 
     SetConsoleOutputCP(CP_UTF8);
-    std::cout << "\x1b[?25l";
+    std::cout << "\x1b[?25l";//ukrycie kursora
 
     StartScreen menuStartowe;
     int wyborMenu = 0;
@@ -56,7 +56,7 @@ int main()
     }
 
     system("cls");
-
+//g:
     while (gra) {
         auto x = std::chrono::high_resolution_clock::now();
 
@@ -130,7 +130,7 @@ int main()
             }
             }
         //test-ekran wygrana
-        /*
+
         if (listaZombie.empty()) {
             YouWinScreen youWinScreen;
             int wyborWinMenu = 0;
@@ -155,6 +155,7 @@ int main()
                         fGraczY = 1.5f;
                         InicjujZombie(NumerMapy); // Odrodzenie zombie
                         wWinEkranie = false;
+                        //goto g;
                     }
                     else if (wyborWinMenu == 1) {
                         // Wyjœcie z gry (EXIT)
@@ -169,26 +170,27 @@ int main()
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
         }
-        */
-        
-        S1.RayCaster(mapa);
+
+
+        S1.RayCaster(mapa);//logika tla
         S1.PrzejsciaPrzezPokoje(mapa);
 
+        //aktualzicja bufora
         g1.BuforMapa();
         z1.ZombieBufor(listaZombie);
         stick.render();
         myGameHud.render();
         p1.Renderuj();
 
-        g1.wypiszBufor();
+        g1.wypiszBufor();//wypiasanie na ekran wszytskiego
 
         auto y = std::chrono::high_resolution_clock::now();
         auto czas_trwania = std::chrono::duration_cast<std::chrono::milliseconds>(y - x);
 
-        if (czas_trwania < std::chrono::milliseconds(16)) {
+        if (czas_trwania < std::chrono::milliseconds(16)) { //kontorla fps
             std::this_thread::sleep_for(std::chrono::milliseconds(16) - czas_trwania);
         }
-    }
+    }//petla gry
 
     return 0;
 }

@@ -5,7 +5,7 @@
 #include "ZmienGlob.h"
 #include "Mapa.h"
 
-KolorRGB ZombieRenderer::PobierzBazowyKolor(int idKoloru) {
+KolorRGB ZombieRenderer::PobierzBazowyKolor(int idKoloru) {//funckaj przypsiujaca kolorw zlaeznosci od wartosci w tabeli
     switch (idKoloru) {
     case 1:  return { 55, 145,  55 }; // Zielony (Skóra)
     case 2:  return { 190,  15,  15 }; // Czerwony (Krew)
@@ -22,7 +22,7 @@ float ZombieRenderer::mapuj(float x, float in_min, float in_max, float out_min, 
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-std::string ZombieRenderer::PobierzKolorTlaANSI(int idKoloru, float jasnosc) {
+std::string ZombieRenderer::PobierzKolorTlaANSI(int idKoloru, float jasnosc) {//kolor tla znaku czyli gornego pikesla
     KolorRGB baza = PobierzBazowyKolor(idKoloru);
     float Njasnosc = std::clamp(jasnosc * 0.8f, 0.05f, 1.0f);
     int r = static_cast<int>(baza.r * Njasnosc);
@@ -32,7 +32,7 @@ std::string ZombieRenderer::PobierzKolorTlaANSI(int idKoloru, float jasnosc) {
     return "48;2;" + std::to_string(r) + ";" + std::to_string(g) + ";" + std::to_string(b);
 }
 
-std::string ZombieRenderer::PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc) {
+std::string ZombieRenderer::PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc) {//kolor zxnaku czyli dolny pixel
     KolorRGB baza = PobierzBazowyKolor(idKoloru);
     float Njasnosc = std::clamp(jasnosc * 0.8f, 0.05f, 1.0f);
     int r = static_cast<int>(baza.r * Njasnosc);
@@ -43,16 +43,16 @@ std::string ZombieRenderer::PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc
 }
 
 bool ZombieRenderer::CzyWidziGracza(const ZombieStruk& z) {
-    float X = z.x - fGraczX;
+    float X = z.x - fGraczX; //pozycja zombie wzgledem gracza
     float Y = z.y - fGraczY;
-    float katDoZombie = std::atan2(X, Y);
+    float katDoZombie = std::atan2(X, Y);//Kat od gracza do zombie
 
 
-    float fOkoX = sinf(katDoZombie);
+    float fOkoX = sinf(katDoZombie); //wsporzedne polarne
     float fOkoY = cosf(katDoZombie);
     float odleglosc = 0.0f;
 
-    while (odleglosc < z.dystans) {
+    while (odleglosc < z.dystans) {//powolne kroczki promeinai i sprawdzania czy jest sciania na odcinku gracz zombie
         odleglosc += 0.05f;
         int mapX = (int)(fGraczX + fOkoX * odleglosc);
         int mapY = (int)(fGraczY + fOkoY * odleglosc);
@@ -87,7 +87,7 @@ void ZombieRenderer::ZombieAtak(ZombieStruk& z) {
 void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     float fWektorX = z.x - fGraczX;
     float fWektorY = z.y - fGraczY;
-    float fSzybChodZom = 0.005;
+    float fSzybChodZom = 0.025;
 
     z.dystans = std::sqrt(fWektorX * fWektorX + fWektorY * fWektorY);
     if (z.dystans < 0.1f) z.dystans = 0.1f;
@@ -95,7 +95,7 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     float fKatDoZombie = std::atan2(fWektorX, fWektorY);
     float fKatDoGracza = std::atan2(fGraczX - z.x, fGraczY - z.y);
 
-    if (z.dystans < 5.0f && z.dystans > 2.0f) {//chodznie
+    if (z.dystans < 10.0f && z.dystans > 2.0f && CzyWidziGracza(z)) {//chodznie
         z.stan = WALK;
 
         float fDeltaZomX = sinf(fKatDoGracza) * fSzybChodZom;
@@ -160,7 +160,7 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     z.widoczny = true;
 }
 
-void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
+void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) { //tweorazy kaltek zombie w zlaeznosci od skali
     int RozmairZombie = 32;
     if (!z.widoczny) return;
     const char* polBlok = "\xE2\x96\x84";
@@ -170,7 +170,7 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
 
 
 
-    int nowyRozmiarX = static_cast<int>(std::round((float)RozmairZombie * skalaX));
+    int nowyRozmiarX = static_cast<int>(std::round((float)RozmairZombie * skalaX)); //zesaklowany rozmair
     int nowyRozmiarY = static_cast<int>(std::round((float)RozmairZombie * skalaY));
 
     if (nowyRozmiarY > 64) nowyRozmiarY = 64;
@@ -185,7 +185,7 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
 
     for (int i = 0; i < test; i++) {
 
-        int aktualnyY = StartY + i;
+        int aktualnyY = StartY + i; //ustaenie pozycji y zombie
         if (aktualnyY >= wysokEkranu) break;
 
         int poczatkowyX = (StartPromien < 0) ? 0 : StartPromien;
@@ -199,7 +199,7 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
             }
 
             if (TabDystans[obecnyPromien] < z.dystans) {
-                Bufor += "\033[1C";
+                Bufor += "\033[1C"; //przesok do najstepj kaltki
                 continue;
             }
 
@@ -230,7 +230,7 @@ void ZombieRenderer::RenderujKlatke(const ZombieStruk& z) {
 
 }
 
-void ZombieRenderer::ZombieBufor(std::vector<ZombieStruk>& listaZombie) {
+void ZombieRenderer::ZombieBufor(std::vector<ZombieStruk>& listaZombie) { //inijalizowanie wsystskich funckji
 
     for (const auto& z : listaZombie) {
         if (z.hp <= 0) {

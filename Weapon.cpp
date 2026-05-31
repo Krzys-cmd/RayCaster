@@ -238,7 +238,7 @@ void Weapon::update(bool isAttacking) {
         // Czekamy 500 milisekund (pół sekundy) patrząc na grafikę z tablicy attack_5
         if (elapsedTime > 500) {
 
-            // ammo = 10; // TUTAJ MOŻESZ ODNOWIĆ AMUNICJĘ (odkomentuj, jeśli masz taką zmienną)
+            ammo = 8; // TUTAJ MOŻESZ ODNOWIĆ AMUNICJĘ (odkomentuj, jeśli masz taką zmienną)
 
             attackFrame = 0; // Koniec animacji przeładowania, powrót do spoczynku
         }
@@ -247,7 +247,7 @@ void Weapon::update(bool isAttacking) {
 
 Pocisk::Pocisk(float obrazenia) : obra(obrazenia) {}
 
-void Pocisk::RysujKule(const DanePocisku& k) {
+void Pocisk::RysujKule(const DanePocisku& k) { //rysowanie samej kuli na podsatwei tabeli
     const int WysokoscKuli = 6;
     const int SzerKuli = 6;
 
@@ -271,22 +271,22 @@ void Pocisk::RysujKule(const DanePocisku& k) {
         }
     };
 
-    float skala = std::max<float>(0.3f, 3.0f / (k.dystans + 0.5f));
+    float skala = std::max<float>(0.3f, 3.0f / (k.dystans + 0.5f)); //skalowanie kuli w zaleznosci od odleglosci
     int nowyW = std::max<int>(2, (int)(SzerKuli * skala * 2));
     int nowyH = std::max<int>(1, (int)(WysokoscKuli * skala));
 
-    int ekranX = (int)(k.x * szerEkranu) - nowyW / 2;
+    int ekranX = (int)(k.x * szerEkranu) - nowyW / 2; //pozychje kuli
     int ekranY = wysokEkranu / 2 - nowyH / 2;
 
     for (int i = 0; i < nowyH; i++) {
         int y = ekranY + i;
         if (y < 0 || y >= wysokEkranu) continue;
 
-        int srcRow = (int)((float)i / nowyH * WysokoscKuli);
+        int srcRow = (int)((float)i / nowyH * WysokoscKuli);//przypsianie watosci z tablciy zrodlwej
         if (srcRow >= WysokoscKuli) srcRow = WysokoscKuli - 1;
 
         Bufor += "\033[" + std::to_string(y + 1) + ";" +
-                 std::to_string(std::max<int>(1, ekranX + 1)) + "H";
+                 std::to_string(std::max<int>(1, ekranX + 1)) + "H"; //ustaelnuie pozycji starowej rysownia kuli
 
         for (int j = 0; j < nowyW; j++) {
             int x = ekranX + j;
@@ -307,7 +307,7 @@ void Pocisk::RysujKule(const DanePocisku& k) {
     }
 }
 
-void Pocisk::RysujWybuch(const DanePocisku& k) {
+void Pocisk::RysujWybuch(const DanePocisku& k) { //rysowanie kaltek wybuchu
     int ekranX  = (int)(k.x * szerEkranu);
     int ekranY  = wysokEkranu / 2;
     int maxRozmiar = std::max<int>(2, (int)(8.0f / (k.dystans + 0.5f) * 2.0f));
@@ -365,7 +365,7 @@ void Pocisk::Strzal(const Weapon& bron, std::vector<ZombieStruk>& listaZombie) {
     nowa.aktywna       = true;
 
     int srodek = szerEkranu / 2;
-    for (auto& z : listaZombie) {
+    for (auto& z : listaZombie) { //sprawdzenie czy kula uderzyla w zombvie biorasc pod uwage skale wielksoci
         if (!z.widoczny) continue;
         int pol = (int)(32.0f * (3.2f / z.dystans)) / 2;
 
@@ -384,7 +384,7 @@ void Pocisk::Strzal(const Weapon& bron, std::vector<ZombieStruk>& listaZombie) {
     kule.push_back(nowa);
 }
 
-void Pocisk::Aktualizuj(std::vector<ZombieStruk>& listaZombie) {
+void Pocisk::Aktualizuj(std::vector<ZombieStruk>& listaZombie) { //akutalzicja klatek wybuchu
     for (auto& k : kule) {
         if (!k.aktywna) continue;
 
@@ -399,14 +399,14 @@ void Pocisk::Aktualizuj(std::vector<ZombieStruk>& listaZombie) {
         }
 
     }
-       kule.erase(
+       kule.erase( //usuwanie nieaktywnych kuli z wektora
         std::remove_if(kule.begin(), kule.end(),
             [](const DanePocisku& k){ return !k.aktywna; }),
         kule.end()
     );
 }
 
-void Pocisk::Renderuj() {
+void Pocisk::Renderuj() {//sprawdza wketor kule cxzy rysowac czy nie
     for (const auto& k : kule) {
         if (!k.aktywna) continue;
         if (k.klatkaWybuchu < 0)
