@@ -174,7 +174,7 @@ void DeathScreen::render(int selectedOption, int lives) {
     else {
        //GAME OVER
         const char* gameOverArt[7][43] = {
-        { T,G,G,G, T, T,G,G,T, T, G,T,T,T,G, T, G,G,G,G, T,T,T, T,G,G,T, T, G,T,T,T,G, T, G,G,G,G, T, G,G,G,T },
+    { T,G,G,G, T, T,G,G,T, T, G,T,T,T,G, T, G,G,G,G, T,T,T, T,G,G,T, T, G,T,T,T,G, T, G,G,G,G, T, G,G,G,T },
     { G,T,T,T, T, G,T,T,G, T, G,G,T,G,G, T, G,T,T,T, T,T,T, G,T,T,G, T, G,T,T,T,G, T, G,T,T,T, T, G,T,T,G },
     { G,T,T,T, T, G,T,T,G, T, G,T,G,T,G, T, G,G,G,T, T,T,T, G,T,T,G, T, G,T,T,T,G, T, G,G,G,T, T, G,T,T,G },
     { G,T,G,G, T, G,G,G,G, T, G,T,T,T,G, T, G,T,T,T, T,T,T, G,T,T,G, T, T,G,T,G,T, T, G,T,T,T, T, G,G,G,T },
