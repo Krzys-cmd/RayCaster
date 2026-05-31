@@ -2,71 +2,44 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="klasy.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="368" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="HUD.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="375" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="grafika.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="121" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Weapon.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="663" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="StatusBar.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="746" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="8" />
-			<Collapse line="11" />
-			<Collapse line="17" />
-		</Folding>
-	</File>
 	<File name="grafika.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8469" topLine="19" />
+			<Cursor1 position="3669" topLine="86" />
 		</Cursor>
 		<Folding>
-			<Collapse line="9" />
-			<Collapse line="104" />
-			<Collapse line="110" />
-			<Collapse line="121" />
+			<Collapse line="111" />
+			<Collapse line="129" />
+			<Collapse line="220" />
 		</Folding>
+	</File>
+	<File name="fun.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="297" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="zombie.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1386" topLine="35" />
 		</Cursor>
 	</File>
-	<File name="zombie.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="PozycjeZombie.h" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1761" topLine="8" />
+			<Cursor1 position="1892" topLine="15" />
 		</Cursor>
-		<Folding>
-			<Collapse line="7" />
-			<Collapse line="18" />
-			<Collapse line="24" />
-			<Collapse line="34" />
-		</Folding>
 	</File>
-	<File name="StatusBar.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="klasy.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="561" topLine="8" />
 		</Cursor>
 	</File>
 	<File name="ekrany.h" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ZombieKlatki.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="82" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="HUD.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -79,11 +52,6 @@
 			<Collapse line="27" />
 			<Collapse line="31" />
 		</Folding>
-	</File>
-	<File name="Mapa.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="515" topLine="52" />
-		</Cursor>
 	</File>
 	<File name="Weapon.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -106,35 +74,68 @@
 			<Collapse line="358" />
 		</Folding>
 	</File>
-	<File name="PozycjeZombie.h" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="HUD.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1892" topLine="15" />
+			<Cursor1 position="375" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Weapon.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="663" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="grafika.h" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="121" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="ZmienGlob.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="364" topLine="0" />
+			<Cursor1 position="1202" topLine="20" />
 		</Cursor>
 	</File>
-	<File name="fun.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="297" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3212" topLine="97" />
+			<Cursor1 position="3212" topLine="109" />
 		</Cursor>
 		<Folding>
 			<Collapse line="42" />
 		</Folding>
 	</File>
-	<File name="ZombieKlatki.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Mapa.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="82" topLine="0" />
+			<Cursor1 position="1787" topLine="12" />
 		</Cursor>
 	</File>
+	<File name="zombie.cpp" open="1" top="1" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3456" topLine="152" />
+		</Cursor>
+		<Folding>
+			<Collapse line="7" />
+			<Collapse line="18" />
+			<Collapse line="24" />
+			<Collapse line="34" />
+			<Collapse line="44" />
+			<Collapse line="69" />
+		</Folding>
+	</File>
 	<File name="ekrany.cpp" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5107" topLine="144" />
+		</Cursor>
+	</File>
+	<File name="StatusBar.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="746" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="8" />
+			<Collapse line="11" />
+			<Collapse line="17" />
+		</Folding>
+	</File>
+	<File name="StatusBar.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>

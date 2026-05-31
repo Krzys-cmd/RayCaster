@@ -99,6 +99,13 @@ void grafika::BuforMapa() {
         Bufor += "\n";
     }
 
+        if (napisInfoKlatki > 0) {
+            Bufor += "\x1b[0m";
+            Bufor += "\x1b[" + std::to_string((wysokEkranu / 2)+9) + ";" +
+            std::to_string((szerEkranu / 2) - (int)(napisInfo.length() / 2)) + "H";
+            Bufor += "\x1b[38;2;255;50;50m" + napisInfo + "\x1b[0m";
+            napisInfoKlatki--;
+            }
 
 }
 
@@ -109,7 +116,8 @@ float grafika::mapuj(float x, float in_min, float in_max, float out_min, float o
 }
 
 void grafika::wypiszBufor() {
-      Bufor += "\x1b[H";
+    Bufor += "\x1b[H";
+
 
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD written;

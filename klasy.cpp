@@ -20,6 +20,10 @@ void gracz::akcjeGracza() {
             DrzwiOtworz = true;
             pts = 0;
         }
+        else if(key == 'e' && pts < 50){
+            napisInfo = " ZA  MALO  PKT ";
+            napisInfoKlatki = 90; // 2 sekundy przy 60fps
+        }
         if (key == 'r') {
             ammo = 8;
         }

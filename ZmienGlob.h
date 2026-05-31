@@ -40,4 +40,6 @@ inline std::string Bufor;
 inline std::vector<ZombieStruk> listaZombie;
 inline bool klatka = 0;
 
+inline std::string napisInfo = "";
+inline int napisInfoKlatki = 0;
 #endif // ZMIENGLOB_H_INCLUDED

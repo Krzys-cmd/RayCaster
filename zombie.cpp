@@ -84,7 +84,6 @@ void ZombieRenderer::ZombieAtak(ZombieStruk& z) {
 
 }
 
-
 void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
     float fWektorX = z.x - fGraczX;
     float fWektorY = z.y - fGraczY;
@@ -105,16 +104,31 @@ void ZombieRenderer::pozycjaZombie(ZombieStruk& z) {
         float fNoweX = z.x + fDeltaZomX;
         float fNoweY = z.y + fDeltaZomY;
 
-        if (fNoweX >= 0 && fNoweX < SzerMapy) {
-            if (mapa[NumerMapy][(int)z.y][(int)(z.x + fDeltaZomX)] != 1) {
-                z.x += fDeltaZomX;
-            }
+         float promien = 0.3f; // promien kolizji zombie
+
+    // Sprawdź kolizję X z uwzględnieniem promienia
+    float noweX = z.x + fDeltaZomX;
+        if (noweX >= 0 && noweX < SzerMapy) {
+            bool kolizjaX = false;
+            // Sprawdź kilka punktów wokół zombie
+            if (mapa[NumerMapy][(int)z.y][(int)(noweX + promien)] == 1) kolizjaX = true;
+            if (mapa[NumerMapy][(int)z.y][(int)(noweX - promien)] == 1) kolizjaX = true;
+            if (mapa[NumerMapy][(int)(z.y + promien)][(int)noweX] == 1) kolizjaX = true;
+            if (mapa[NumerMapy][(int)(z.y - promien)][(int)noweX] == 1) kolizjaX = true;
+
+            if (!kolizjaX) z.x += fDeltaZomX;
         }
 
-        if (fNoweY >= 0 && fNoweY < WysMapy) {
-            if (mapa[NumerMapy][(int)(z.y + fDeltaZomY)][(int)z.x] != 1) {
-                z.y += fDeltaZomY;
-            }
+        // Sprawdź kolizję Y z uwzględnieniem promienia
+        float noweY = z.y + fDeltaZomY;
+        if (noweY >= 0 && noweY < WysMapy) {
+            bool kolizjaY = false;
+            if (mapa[NumerMapy][(int)(noweY + promien)][(int)z.x] == 1) kolizjaY = true;
+            if (mapa[NumerMapy][(int)(noweY - promien)][(int)z.x] == 1) kolizjaY = true;
+            if (mapa[NumerMapy][(int)noweY][(int)(z.x + promien)] == 1) kolizjaY = true;
+            if (mapa[NumerMapy][(int)noweY][(int)(z.x - promien)] == 1) kolizjaY = true;
+
+            if (!kolizjaY) z.y += fDeltaZomY;
         }
     }//chodzenie
     else if (z.dystans <= 2.0f) {
