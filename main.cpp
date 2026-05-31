@@ -18,6 +18,7 @@ bool gra = true;
 
 int main()
 {
+
     auto startTime = std::chrono::high_resolution_clock::now();
 
     HUD myGameHud;
@@ -117,6 +118,7 @@ int main()
                         else if (wyborMenu == 1) {
                             return 0;
                         }
+
                     }
                     std::this_thread::sleep_for(std::chrono::milliseconds(400));
                 }

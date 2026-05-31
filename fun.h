@@ -22,8 +22,8 @@ public:
     inline static bool DrzwiOtworz = false;
     inline static float fPoziomZamknieciaDrzwi = 1.0;
 
-    void sterowanieGracza();
 
+    void sterowanieGracza();
     void akcjeGracza();
 
 };

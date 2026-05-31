@@ -50,6 +50,7 @@ public:
     std::string PobierzKolorTlaANSI(int idKoloru, float jasnosc);
     std::string PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc);
 
+    bool CzyWidziGracza(const ZombieStruk& z);
     void ZombieAtak(ZombieStruk& z);
     void RenderujKlatke(const ZombieStruk& z);
     void ZombieBufor(std::vector<ZombieStruk>& listaZombie);

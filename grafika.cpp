@@ -8,7 +8,7 @@
 
 
 void grafika::BuforMapa() {
-    Bufor += "\x1b[H";
+
 
     for (int i = 0; i < wysokEkranu; i++) {
         for (int j = 0; j < iloscPromieni; j++) {
@@ -109,9 +109,7 @@ float grafika::mapuj(float x, float in_min, float in_max, float out_min, float o
 }
 
 void grafika::wypiszBufor() {
-
-
-
+      Bufor += "\x1b[H";
 
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD written;
@@ -120,7 +118,6 @@ void grafika::wypiszBufor() {
     //std::cout<<Bufor;
     Bufor.clear();
 }
-
 
 void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]) {
 
@@ -216,8 +213,8 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]) {
 void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
 
     if (gracz::fPoziomZamknieciaDrzwi < 0) {
-        for (int i = 0; i < wysokEkranu; i++) {
-            for (int j = 0; j < szerEkranu; j++) {
+        for (int i = 0; i < WysMapy; i++) {
+            for (int j = 0; j < SzerMapy; j++) {
                 if (mapa[NumerMapy][i][j] == 2) {
                     mapa[NumerMapy][i][j] = 3;
                 }
@@ -228,6 +225,7 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
 
     if (mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 3) {
         gracz::fPoziomZamknieciaDrzwi = 1.0;
+        gracz::DrzwiOtworz = false;
         NumerMapy++;
         fGraczX = TabelaPozycjiNowegoPokoju[NumerMapy].x; //pozycje na przenosznie sie do pokoju dalej
         fGraczY = TabelaPozycjiNowegoPokoju[NumerMapy].y;
@@ -236,6 +234,7 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
     }
     else if (mapa[NumerMapy][(int)fGraczY][(int)fGraczX] == 4) {
         gracz::fPoziomZamknieciaDrzwi = 1.0;
+        gracz::DrzwiOtworz = false;
         NumerMapy--;
         fGraczX = TabelaPozycjiPowrotu[NumerMapy].x; // pozycje powrotu
         fGraczY = TabelaPozycjiPowrotu[NumerMapy].y;

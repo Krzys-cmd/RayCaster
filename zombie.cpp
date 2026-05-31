@@ -42,11 +42,37 @@ std::string ZombieRenderer::PobierzKolorCzcionkiANSI(int idKoloru, float jasnosc
     return "38;2;" + std::to_string(r) + ";" + std::to_string(g) + ";" + std::to_string(b);
 }
 
+bool ZombieRenderer::CzyWidziGracza(const ZombieStruk& z) {
+    float X = z.x - fGraczX;
+    float Y = z.y - fGraczY;
+    float katDoZombie = std::atan2(X, Y);
+
+
+    float fOkoX = sinf(katDoZombie);
+    float fOkoY = cosf(katDoZombie);
+    float odleglosc = 0.0f;
+
+    while (odleglosc < z.dystans) {
+        odleglosc += 0.05f;
+        int mapX = (int)(fGraczX + fOkoX * odleglosc);
+        int mapY = (int)(fGraczY + fOkoY * odleglosc);
+
+        if (mapX < 0 || mapX >= SzerMapy || mapY < 0 || mapY >= WysMapy)
+            return false;
+
+        if (mapa[NumerMapy][mapY][mapX] == 1)
+            return false;
+    }
+
+    return true;
+}
 
 void ZombieRenderer::ZombieAtak(ZombieStruk& z) {
     z.stan = ATTACK;
 
-    if (klatka == 1 && z.CzyAtak) {
+
+  if(CzyWidziGracza(z)){
+     if (klatka == 1 && z.CzyAtak) {
         HpGracz -= AtakZombie;
         if (HpGracz < 0) HpGracz = 0;
         z.CzyAtak = false;
@@ -54,6 +80,8 @@ void ZombieRenderer::ZombieAtak(ZombieStruk& z) {
     else if (klatka == 0) {
         z.CzyAtak = true;
     }
+  }
+
 }
 
 

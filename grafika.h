@@ -3,12 +3,14 @@
 
 
 class grafika {
+std::string poprzedniaBufor;
 public:
-
-    float mapuj(float x, float in_min, float in_max, float out_min, float out_max);
-    // void bufor();
+   // grafika();
     void BuforMapa();
     void wypiszBufor();
+    float mapuj(float x, float in_min, float in_max, float out_min, float out_max);
 };
+
+
 
 #endif // GRAFIKA_H_INCLUDED

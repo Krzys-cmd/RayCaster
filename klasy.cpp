@@ -14,9 +14,11 @@ void gracz::akcjeGracza() {
 
         if (key == 'c') {
             system("cls");
+            pts += 10;
         }
-        if (key == 'e') {
+        if (key == 'e' && pts >= 50) {
             DrzwiOtworz = true;
+            pts = 0;
         }
         if (key == 'r') {
             ammo = 8;
@@ -26,8 +28,8 @@ void gracz::akcjeGracza() {
 
 void gracz::sterowanieGracza() {
 
-    float fChodSzyb = 0.05f; //predksoc chodzenia
-    float fObrSzyb = 0.03f; //predksoc obrotu
+    float fChodSzyb = 0.075f; //predksoc chodzenia
+    float fObrSzyb = 0.05f; //predksoc obrotu
 
 
     if (GetAsyncKeyState('A') & 0x8000) {
