@@ -234,3 +234,105 @@ void DeathScreen::render(int selectedOption, int lives) {
         else Bufor += "\x1b[48;2;0;0;0m\x1b[38;2;120;120;120m  " + btn2 + "  \x1b[0m";
     }
 }
+
+void YouWinScreen::render(int selectedOption) {
+    // Czyszczenie ekranu (tak jak w StartScreen)
+    Bufor += "\x1b[48;2;0;0;0m\x1b[H";
+    for (int y = 0; y < wysokEkranu; y++) {
+        for (int x = 0; x < szerEkranu; x++) {
+            Bufor += " ";
+        }
+        if (y < wysokEkranu - 1) Bufor += "\n";
+    }
+
+    // Kody kolorów
+    const char* T = "\x1b[0m  ";              // Przezroczysty / Tło
+    const char* Z = "\x1b[48;2;255;220;0m  "; // Żółty (Wypełnienie)
+    const char* B = "\x1b[48;2;80;0;0m  ";   // Bordowy (Obwódka i Podświetlenie)
+
+    // Tytuł YOU WIN! (29 kolumn z wykrzyknikiem)
+    const char* winGrid[5][29] = {
+        { Z,T,Z, T, Z,Z,Z, T, Z,T,Z, T,T, Z,T,T,T,Z, T, Z,Z,Z, T, Z,T,T,Z, T, Z },
+        { T,Z,T, T, Z,T,Z, T, Z,T,Z, T,T, Z,T,T,T,Z, T, T,Z,T, T, Z,Z,T,Z, T, Z },
+        { T,Z,T, T, Z,T,Z, T, Z,T,Z, T,T, Z,T,Z,T,Z, T, T,Z,T, T, Z,T,Z,Z, T, Z },
+        { T,Z,T, T, Z,T,Z, T, Z,T,Z, T,T, Z,Z,T,Z,Z, T, T,Z,T, T, Z,T,T,Z, T, T },
+        { T,Z,T, T, Z,Z,Z, T, Z,Z,Z, T,T, Z,T,T,T,Z, T, Z,Z,Z, T, Z,T,T,Z, T, Z }
+    };
+
+    int artW = 58; // 29 kolumn * 2 znaki szerokości
+    int artH = 5;
+    int startX = (szerEkranu / 2) - (artW / 2);
+    int startY = (wysokEkranu / 2) - 8;
+
+    // Rysowanie napisu + automatyczna bordowa obwódka
+    for (int y = -1; y <= artH; y++) {
+        for (int x = -1; x <= 29; x++) {
+
+            const char* rysowanyKolor = T;
+
+            if (y >= 0 && y < artH && x >= 0 && x < 29 && winGrid[y][x] != T) {
+                rysowanyKolor = winGrid[y][x];
+            }
+            else {
+                bool dotykaZnaku = false;
+                for (int dy = -1; dy <= 1; dy++) {
+                    for (int dx = -1; dx <= 1; dx++) {
+                        int sprawdzY = y + dy;
+                        int sprawdzX = x + dx;
+
+                        if (sprawdzY >= 0 && sprawdzY < artH && sprawdzX >= 0 && sprawdzX < 29) {
+                            if (winGrid[sprawdzY][sprawdzX] != T) {
+                                dotykaZnaku = true;
+                            }
+                        }
+                    }
+                }
+                if (dotykaZnaku) {
+                    rysowanyKolor = B;
+                }
+            }
+
+            if (rysowanyKolor != T) {
+                Bufor += "\x1b[" + std::to_string(startY + y + 1) + ";" + std::to_string(startX + (x * 2) + 1) + "H";
+                Bufor += rysowanyKolor;
+            }
+        }
+    }
+
+    int menuY = startY + artH + 6;
+    Bufor += "\x1b[0m";
+
+    // --- PRZYCISK: ZAGRAJ PONOWNIE ---
+    std::string playText = "Z A G R A J   P O N O W N I E";
+    int playMenuX = (szerEkranu / 2) - (playText.length() / 2);
+    Bufor += "\x1b[" + std::to_string(menuY) + ";" + std::to_string(playMenuX + 1) + "H";
+
+    if (selectedOption == 0) {
+        // TERAZ: Bordowe tło i żółte litery dla aktywnej opcji
+        Bufor += "\x1b[48;2;110;0;20m\x1b[38;2;255;220;0m";
+        Bufor += "> " + playText + " <";
+    }
+    else {
+        // Nieaktywny (Czarne tło, szare litery)
+        Bufor += "\x1b[48;2;0;0;0m\x1b[38;2;120;120;120m";
+        Bufor += "  " + playText + "  ";
+    }
+
+    // --- PRZYCISK: EXIT ---
+    std::string exitText = "E X I T";
+    int exitMenuX = (szerEkranu / 2) - (exitText.length() / 2);
+    Bufor += "\x1b[" + std::to_string(menuY + 3) + ";" + std::to_string(exitMenuX + 1) + "H";
+
+    if (selectedOption == 1) {
+        // TERAZ: Bordowe tło i żółte litery dla aktywnej opcji
+        Bufor += "\x1b[48;2;110;0;20m\x1b[38;2;255;220;0m";
+        Bufor += "> " + exitText + " <";
+    }
+    else {
+        // Nieaktywny (Czarne tło, szare litery)
+        Bufor += "\x1b[48;2;0;0;0m\x1b[38;2;120;120;120m";
+        Bufor += "  " + exitText + "  ";
+    }
+
+    Bufor += "\x1b[0m";
+}

@@ -129,7 +129,48 @@ int main()
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
             }
             }
+        //test-ekran wygrana
+        /*
+        if (listaZombie.empty()) {
+            YouWinScreen youWinScreen;
+            int wyborWinMenu = 0;
+            bool wWinEkranie = true;
 
+            // Krótka pauza zabezpieczaj¹ca przed natychmiastowym zatwierdzeniem
+            std::this_thread::sleep_for(std::chrono::milliseconds(400));
+
+            while (wWinEkranie) {
+                if (GetAsyncKeyState('W') & 0x8000) wyborWinMenu = 0;
+                if (GetAsyncKeyState('S') & 0x8000) wyborWinMenu = 1;
+
+                if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
+                    if (wyborWinMenu == 0) {
+                        // Reset gry, aby graæ od nowa (ZAGRAJ PONOWNIE)
+                        zycia = 3;
+                        HpGracz = 100.0f;
+                        ammo = 8.0f;
+                        pts = 0.0f;
+                        NumerMapy = 0;
+                        fGraczX = 2.5f;
+                        fGraczY = 1.5f;
+                        InicjujZombie(NumerMapy); // Odrodzenie zombie
+                        wWinEkranie = false;
+                    }
+                    else if (wyborWinMenu == 1) {
+                        // Wyjœcie z gry (EXIT)
+                        return 0;
+                    }
+                    std::this_thread::sleep_for(std::chrono::milliseconds(400));
+                }
+
+                Bufor.clear();
+                youWinScreen.render(wyborWinMenu);
+                g1.wypiszBufor();
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            }
+        }
+        */
+        
         S1.RayCaster(mapa);
         S1.PrzejsciaPrzezPokoje(mapa);
 

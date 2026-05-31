@@ -12,4 +12,10 @@ public:
     void render(int selectedOption, int lives);
 };
 
+class YouWinScreen {
+public:
+    void render(int selectedOption);
+};
+
+
 #endif 

@@ -1,4 +1,6 @@
 ﻿#include "ZmienGlob.h"
+#define NOMINMAX
+#include <windows.h>
 #include "Weapon.h"
 #include <thread>
 #include <chrono>
@@ -117,6 +119,29 @@ void Weapon::render() const {
     { T, T, c, j, j, c, T, T, T, T, T, T, T, T, T, T },
     { T, T, c, j, s, T, T, T, T, T, T, T, T, T, T, T },
     };
+    //ladowanie
+    const char* attack_5[20][16] = {
+{ T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T },
+{ T, T, T, T, T, T, T, T, T, T, p, T, T, T, T, T },
+{ T, T, T, T, T, T, T, T, T, T, T, T, p, T, cp, T },
+{ T, T, T, T, T, T, T, T, T, T, T, cp, T, T, T, T},
+{ T, T, T, T, T, T, T, p, T, p, T, T, p, cp, T, T},
+{ T, T, T, T, T, T, T, T, T, T, cp, cp, T, p, T, T },
+{ T, T, T, T, T, T, T, T, T, T, c, cp, T, T, T, p },
+{ T, T, T, T, T, T, T, T, c, s, j, p, T, T, T, T },
+{ T, T, T, T, T, T, T, T, s, j, s, T, p, T, T, T },
+{ T, T, T, T, T, T, T, c, j, s, c, T, T, T, T, T },
+{ T, T, T, T, T, T, T, c, j, s, T, T, T, T, T, T },
+{ T, T, T, T, T, T, T, s, j, c, T, T, T, T, T, T },
+{ T, T, T, T, T, T, s, j, s, T, T, T, T, T, T, T },
+{ T, T, T, T, T, T, s, j, c, T, T, T, T, T, T, T },
+{ T, T, T, T, T, s, j, s, T, T, T, T, T, T, T, T },
+{ T, T, T, T, c, j, s, c, T, T, T, T, T, T, T, T },
+{ T, T, T, T, s, j, c, T, T, T, T, T, T, T, T, T },
+{ T, T, T, s, j, c, T, T, T, T, T, T, T, T, T, T },
+{ T, T, c, j, j, c, T, T, T, T, T, T, T, T, T, T },
+{ T, T, c, j, s, T, T, T, T, T, T, T, T, T, T, T },
+    };
 
 
     if (attackFrame == 0) {
@@ -160,6 +185,16 @@ void Weapon::render() const {
             }
         }
     }
+    else if (attackFrame == 4) {
+        // Klatka przeładowania
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 16; x++) {
+                if (attack_5[y][x] != T) {
+                    Bufor += "\x1b[" + std::to_string(startY + y) + ";" + std::to_string(startX + (x * 2)) + "H" + attack_5[y][x];
+                }
+            }
+        }
+    }
     Bufor += "\x1b[0m";
 
 
@@ -172,25 +207,40 @@ void Weapon::update(bool isAttacking) {
 
     // Oblicz, ile milisekund minê³o od ostatniej zmiany klatki
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastFrameTime).count();
+    //czy wcisnieto R
+    bool isReloading = (GetAsyncKeyState(0x52) & 0x8000);
 
-    // Jeœli gracz klika atak i jeszcze nie zaczêliœmy animacji (jest 0), zacznij natychmiast
-    if (isAttacking && attackFrame == 0 && ammo > 0) {
+    // 1. ROZPOCZĘCIE PRZEŁADOWANIA
+    // Jeśli wciskamy R, mamy włączony spoczynek (0) i chcemy przeładować
+    if (isReloading && attackFrame == 0) {
+        attackFrame = 4;             // 4 to nasz nowy stan "przeładowanie"
+        lastFrameTime = currentTime; // Reset stopera
+    }
+    // 2. ROZPOCZĘCIE STRZAŁU
+    else if (isAttacking && attackFrame == 0 && ammo > 0) {
         ammo--;
         attackFrame = 1;
-        lastFrameTime = currentTime; // Zresetuj zegar
+        lastFrameTime = currentTime;
     }
-    // Jeœli animacja ju¿ trwa (jest wiêksza od 0)
-    else if (attackFrame > 0) {
-
-        // Zmieñ klatkê TYLKO jeœli up³ynê³o np. 150 milisekund
+    // 3. TRWA ANIMACJA STRZAŁU (klatki 1, 2, 3)
+    else if (attackFrame > 0 && attackFrame < 4) {
         if (elapsedTime > 150) {
             attackFrame++;
-            lastFrameTime = currentTime; // Zresetuj zegar dla nastêpnej klatki
+            lastFrameTime = currentTime;
 
-            // Jeœli animacja dobieg³a koñca, wróæ do pozycji 0
             if (attackFrame > 3) {
-                attackFrame = 0;
+                attackFrame = 0; // koniec animacji strzału, powrót do spoczynku
             }
+        }
+    }
+    // 4. TRWA ANIMACJA PRZEŁADOWANIA (klatka 4)
+    else if (attackFrame == 4) {
+        // Czekamy 500 milisekund (pół sekundy) patrząc na grafikę z tablicy attack_5
+        if (elapsedTime > 500) {
+
+            // ammo = 10; // TUTAJ MOŻESZ ODNOWIĆ AMUNICJĘ (odkomentuj, jeśli masz taką zmienną)
+
+            attackFrame = 0; // Koniec animacji przeładowania, powrót do spoczynku
         }
     }
 }
@@ -221,9 +271,9 @@ void Pocisk::RysujKule(const DanePocisku& k) {
         }
     };
 
-    float skala = std::max(0.3f, 3.0f / (k.dystans + 0.5f));
-    int nowyW = std::max(2, (int)(SzerKuli * skala * 2)); // *2 proporcje konsoli
-    int nowyH = std::max(1, (int)(WysokoscKuli * skala));
+    float skala = std::max<float>(0.3f, 3.0f / (k.dystans + 0.5f));
+    int nowyW = std::max<int>(2, (int)(SzerKuli * skala * 2));
+    int nowyH = std::max<int>(1, (int)(WysokoscKuli * skala));
 
     int ekranX = (int)(k.x * szerEkranu) - nowyW / 2;
     int ekranY = wysokEkranu / 2 - nowyH / 2;
@@ -236,7 +286,7 @@ void Pocisk::RysujKule(const DanePocisku& k) {
         if (srcRow >= WysokoscKuli) srcRow = WysokoscKuli - 1;
 
         Bufor += "\033[" + std::to_string(y + 1) + ";" +
-                 std::to_string(std::max(1, ekranX + 1)) + "H";
+                 std::to_string(std::max<int>(1, ekranX + 1)) + "H";
 
         for (int j = 0; j < nowyW; j++) {
             int x = ekranX + j;
@@ -260,7 +310,7 @@ void Pocisk::RysujKule(const DanePocisku& k) {
 void Pocisk::RysujWybuch(const DanePocisku& k) {
     int ekranX  = (int)(k.x * szerEkranu);
     int ekranY  = wysokEkranu / 2;
-    int maxRozmiar = std::max(2, (int)(8.0f / (k.dystans + 0.5f) * 2.0f));
+    int maxRozmiar = std::max<int>(2, (int)(8.0f / (k.dystans + 0.5f) * 2.0f));
 
     int rozmiar;
     if (k.klatkaWybuchu <= 2)

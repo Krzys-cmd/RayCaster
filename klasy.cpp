@@ -24,9 +24,9 @@ void gracz::akcjeGracza() {
             napisInfo = " ZA  MALO  PKT ";
             napisInfoKlatki = 90; // 2 sekundy przy 60fps
         }
-        if (key == 'r') {
-            ammo = 8;
-        }
+       // if (key == 'r') {
+        //    ammo = 8;
+        //}
     }
 }
 
