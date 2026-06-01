@@ -14,7 +14,7 @@ void gracz::akcjeGracza() {
 
         if (key == 'c') {
             system("cls");
-            pts += 10;
+            //pts += 10;
         }
         if (key == 'e' && pts >= 50) {
             DrzwiOtworz = true;

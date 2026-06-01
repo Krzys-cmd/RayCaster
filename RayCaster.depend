@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1780313374 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
+1780333157 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"
@@ -18,7 +18,7 @@
 1780235158 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
 	"ZmienGlob.h"
 
-1780243099 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
+1780320366 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 	<string>
 	<vector>
 	"zombie.h"
@@ -48,7 +48,7 @@
 	<vector>
 	"zombie.h"
 
-1780258316 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\weapon.cpp
+1780332966 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\weapon.cpp
 	<windows.h>
 	"Weapon.h"
 	<thread>
@@ -105,10 +105,11 @@
 	"PozycjeZombie.h"
 	<windows.h>
 
-1780255739 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\ekrany.cpp
+1780332966 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\ekrany.cpp
 	"ZmienGlob.h"
+	"grafika.h"
 	<string>
 	<vector>
 
-1780255739 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\ekrany.h
+1780332966 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\ekrany.h
 

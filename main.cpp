@@ -72,8 +72,8 @@ int main()
         }
 
         // Logika wygranej
-        if (listaZombie.empty()) {
-            obslugaEkranuWygranej(); 
+        if (pts >= 50 && NumerMapy == 2) {
+            obslugaEkranuWygranej();
             return 0;                // EXIT
         }
 
