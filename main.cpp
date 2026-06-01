@@ -102,7 +102,7 @@ int main()
                     if (zycia > 0) {
 
                         HpGracz = 100.0f;
-                        fGraczX = TabelaPozycjiPowrotu[NumerMapy].x;
+                        fGraczX = TabelaPozycjiPowrotu[NumerMapy].x;//nowy spawn
                         fGraczY = TabelaPozycjiPowrotu[NumerMapy].y;
                         wEkranie = false;
                     }
