@@ -79,7 +79,7 @@ int main()
 
         myGameHud.update(HpGracz, ammo, pts);
 
-
+         std::cout << NumerMapy;
         if (HpGracz <= 0.0f) {
             zycia -= 1;
 
@@ -102,6 +102,8 @@ int main()
                     if (zycia > 0) {
 
                         HpGracz = 100.0f;
+                        fGraczX = TabelaPozycjiPowrotu[NumerMapy].x;
+                        fGraczY = TabelaPozycjiPowrotu[NumerMapy].y;
                         wEkranie = false;
                     }
                     else {
