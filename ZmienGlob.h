@@ -36,10 +36,10 @@ inline bool TabDrzwi[iloscPromieni];
 inline bool attack = false;
 inline int zycia = 3;
 
-inline std::string Bufor;
-inline std::vector<ZombieStruk> listaZombie;
-inline bool klatka = 0;
+extern std::string Bufor;
+extern std::vector<ZombieStruk> listaZombie;
+extern std::string napisInfo;
 
-inline std::string napisInfo = "";
 inline int napisInfoKlatki = 0;
+inline bool klatka = 0;
 #endif // ZMIENGLOB_H_INCLUDED

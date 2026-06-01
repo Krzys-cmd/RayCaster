@@ -16,6 +16,10 @@
 
 bool gra = true;
 
+std::string Bufor;
+std::vector<ZombieStruk> listaZombie;
+std::string napisInfo = "";
+
 int main()
 {
 
