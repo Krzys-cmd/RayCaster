@@ -17,15 +17,16 @@ void Weapon::render() const {
     int startY = wysokEkranu - 19;
     int startX = (szerEkranu / 2) + 10;
 
-    const char* T = "\x1b[0m  ";                     // Przezroczysty
-    const char* j = "\x1b[48;2;139;69;19m  ";        // Jasny br¹z
-    const char* s = "\x1b[48;2;104;52;14m  ";        //sredni
-    const char* c = "\x1b[48;2;70;35;10m  ";         // Ciemny br¹z
+    //kody kolorow
+    const char* T = "\x1b[0m  ";                     
+    const char* j = "\x1b[48;2;139;69;19m  ";        
+    const char* s = "\x1b[48;2;104;52;14m  ";        
+    const char* c = "\x1b[48;2;70;35;10m  ";         
 
-    const char* p = "\x1b[48;2;255;128;0m  ";      // Pomarañczowy
-    const char* cp = "\x1b[48;2;200;80;0m  ";       // Ciemniejszy pomarañczowy
-    const char* cz = "\x1b[48;2;220;20;20m  ";      // Czerwony
-    const char* cb = "\x1b[48;2;35;15;5m  ";        // Czarno-br¹zowy
+    const char* p = "\x1b[48;2;255;128;0m  ";      
+    const char* cp = "\x1b[48;2;200;80;0m  ";       
+    const char* cz = "\x1b[48;2;220;20;20m  ";      
+    const char* cb = "\x1b[48;2;35;15;5m  ";        
 
     //bez ataku
     const char* attack_1[20][16] = {
@@ -119,7 +120,7 @@ void Weapon::render() const {
     { T, T, c, j, j, c, T, T, T, T, T, T, T, T, T, T },
     { T, T, c, j, s, T, T, T, T, T, T, T, T, T, T, T },
     };
-    //ladowanie
+    //pzeladowanie
     const char* attack_5[20][16] = {
 { T, T, T, T, T, T, T, T, T, T, T, T, T, T, T, T },
 { T, T, T, T, T, T, T, T, T, T, p, T, T, T, T, T },
@@ -145,7 +146,7 @@ void Weapon::render() const {
 
 
     if (attackFrame == 0) {
-        // Spoczynek (attack_1)
+        // Spoczynek 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 16; x++) {
                 if (attack_1[y][x] != T) {
@@ -202,27 +203,26 @@ void Weapon::render() const {
 }
 
 void Weapon::update(bool isAttacking) {
-    // Pobierz aktualny czas
+    // aktualny czas
     auto currentTime = std::chrono::steady_clock::now();
 
-    // Oblicz, ile milisekund minê³o od ostatniej zmiany klatki
+    // ile milisekund minelo od ostatniej zmiany klatki
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastFrameTime).count();
-    //czy wcisnieto R
+    //czy wcisnieto R (przeladowanie)
     bool isReloading = (GetAsyncKeyState(0x52) & 0x8000);
 
-    // 1. ROZPOCZĘCIE PRZEŁADOWANIA
-    // Jeśli wciskamy R, mamy włączony spoczynek (0) i chcemy przeładować
+    // PRZEŁADOWANIE
     if (isReloading && attackFrame == 0) {
-        attackFrame = 4;             // 4 to nasz nowy stan "przeładowanie"
-        lastFrameTime = currentTime; // Reset stopera
+        attackFrame = 4;             
+        lastFrameTime = currentTime; 
     }
-    // 2. ROZPOCZĘCIE STRZAŁU
+    // STRZAŁ
     else if (isAttacking && attackFrame == 0 && ammo > 0) {
         ammo--;
         attackFrame = 1;
         lastFrameTime = currentTime;
     }
-    // 3. TRWA ANIMACJA STRZAŁU (klatki 1, 2, 3)
+    // ANIMACJA STRZAŁU (klatki 1, 2, 3)
     else if (attackFrame > 0 && attackFrame < 4) {
         if (elapsedTime > 150) {
             attackFrame++;
@@ -233,14 +233,11 @@ void Weapon::update(bool isAttacking) {
             }
         }
     }
-    // 4. TRWA ANIMACJA PRZEŁADOWANIA (klatka 4)
+    // ANIMACJA PRZEŁADOWANIA (klatka 4)
     else if (attackFrame == 4) {
-        // Czekamy 500 milisekund (pół sekundy) patrząc na grafikę z tablicy attack_5
         if (elapsedTime > 500) {
-
-            ammo = 8; // TUTAJ MOŻESZ ODNOWIĆ AMUNICJĘ (odkomentuj, jeśli masz taką zmienną)
-
-            attackFrame = 0; // Koniec animacji przeładowania, powrót do spoczynku
+            ammo = 8; 
+            attackFrame = 0; // powrót do spoczynku
         }
     }
 }

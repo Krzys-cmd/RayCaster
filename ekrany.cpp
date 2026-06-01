@@ -1,9 +1,11 @@
 ﻿#include "ekrany.h"
 #include "ZmienGlob.h"
+#include "grafika.h"
 #include <string>
 #include <vector>
 
 void StartScreen::render(int selectedOption) {
+    // Czyszczenie ekranu
     Bufor += "\x1b[48;2;0;0;0m\x1b[H";
     for (int y = 0; y < wysokEkranu; y++) {
         for (int x = 0; x < szerEkranu; x++) {
@@ -108,6 +110,7 @@ void StartScreen::render(int selectedOption) {
 }
 
 void DeathScreen::render(int selectedOption, int lives) {
+    // Czyszczenie ekranu
     Bufor += "\x1b[48;2;0;0;0m\x1b[H";
     for (int y = 0; y < wysokEkranu; y++) {
         for (int x = 0; x < szerEkranu; x++) {
@@ -116,6 +119,7 @@ void DeathScreen::render(int selectedOption, int lives) {
         if (y < wysokEkranu - 1) Bufor += "\n";
     }
 
+    //kody kolorow
     const char* T = "\x1b[0m  ";                
     const char* R = "\x1b[48;2;220;0;0m  ";     
     const char* G = "\x1b[48;2;50;205;50m  ";    
@@ -216,27 +220,21 @@ void DeathScreen::render(int selectedOption, int lives) {
                 }
             }
         }
-
-        // Przyciski Menu
-        Bufor += "\x1b[0m"; 
+        // Menu
+        Bufor += "\x1b[0m";
         int menuY = startY + artH + 6;
 
-        std::string btn1 = "Z A G R A J  P O N O W N I E";
-        int btn1X = (szerEkranu / 2) - (btn1.length() / 2);
-        Bufor += "\x1b[" + std::to_string(menuY) + ";" + std::to_string(btn1X + 1) + "H";
-        if (selectedOption == 0) Bufor += "\x1b[48;2;180;0;0m\x1b[38;2;255;255;255m> " + btn1 + " <\x1b[0m";
-        else Bufor += "\x1b[48;2;0;0;0m\x1b[38;2;120;120;120m  " + btn1 + "  \x1b[0m";
-
+        // EXIT
         std::string btn2 = "E X I T";
         int btn2X = (szerEkranu / 2) - (btn2.length() / 2);
         Bufor += "\x1b[" + std::to_string(menuY + 3) + ";" + std::to_string(btn2X + 1) + "H";
-        if (selectedOption == 1) Bufor += "\x1b[48;2;180;0;0m\x1b[38;2;255;255;255m> " + btn2 + " <\x1b[0m";
-        else Bufor += "\x1b[48;2;0;0;0m\x1b[38;2;120;120;120m  " + btn2 + "  \x1b[0m";
+
+        Bufor += "\x1b[48;2;180;0;0m\x1b[38;2;255;255;255m> " + btn2 + " <\x1b[0m";
     }
 }
 
 void YouWinScreen::render(int selectedOption) {
-    // Czyszczenie ekranu (tak jak w StartScreen)
+    // Czyszczenie ekranu
     Bufor += "\x1b[48;2;0;0;0m\x1b[H";
     for (int y = 0; y < wysokEkranu; y++) {
         for (int x = 0; x < szerEkranu; x++) {
@@ -246,11 +244,11 @@ void YouWinScreen::render(int selectedOption) {
     }
 
     // Kody kolorów
-    const char* T = "\x1b[0m  ";              // Przezroczysty / Tło
-    const char* Z = "\x1b[48;2;255;220;0m  "; // Żółty (Wypełnienie)
-    const char* B = "\x1b[48;2;80;0;0m  ";   // Bordowy (Obwódka i Podświetlenie)
+    const char* T = "\x1b[0m  ";              
+    const char* Z = "\x1b[48;2;255;220;0m  "; 
+    const char* B = "\x1b[48;2;80;0;0m  ";   
 
-    // Tytuł YOU WIN! (29 kolumn z wykrzyknikiem)
+    // you win !
     const char* winGrid[5][29] = {
         { Z,T,Z, T, Z,Z,Z, T, Z,T,Z, T,T, Z,T,T,T,Z, T, Z,Z,Z, T, Z,T,T,Z, T, Z },
         { T,Z,T, T, Z,T,Z, T, Z,T,Z, T,T, Z,T,T,T,Z, T, T,Z,T, T, Z,Z,T,Z, T, Z },
@@ -259,12 +257,12 @@ void YouWinScreen::render(int selectedOption) {
         { T,Z,T, T, Z,Z,Z, T, Z,Z,Z, T,T, Z,T,T,T,Z, T, Z,Z,Z, T, Z,T,T,Z, T, Z }
     };
 
-    int artW = 58; // 29 kolumn * 2 znaki szerokości
+    int artW = 58; 
     int artH = 5;
     int startX = (szerEkranu / 2) - (artW / 2);
     int startY = (wysokEkranu / 2) - 8;
 
-    // Rysowanie napisu + automatyczna bordowa obwódka
+    // Rysowanie napisu + obwódka
     for (int y = -1; y <= artH; y++) {
         for (int x = -1; x <= 29; x++) {
 
@@ -302,37 +300,85 @@ void YouWinScreen::render(int selectedOption) {
     int menuY = startY + artH + 6;
     Bufor += "\x1b[0m";
 
-    // --- PRZYCISK: ZAGRAJ PONOWNIE ---
-    std::string playText = "Z A G R A J   P O N O W N I E";
-    int playMenuX = (szerEkranu / 2) - (playText.length() / 2);
-    Bufor += "\x1b[" + std::to_string(menuY) + ";" + std::to_string(playMenuX + 1) + "H";
-
-    if (selectedOption == 0) {
-        // TERAZ: Bordowe tło i żółte litery dla aktywnej opcji
-        Bufor += "\x1b[48;2;110;0;20m\x1b[38;2;255;220;0m";
-        Bufor += "> " + playText + " <";
-    }
-    else {
-        // Nieaktywny (Czarne tło, szare litery)
-        Bufor += "\x1b[48;2;0;0;0m\x1b[38;2;120;120;120m";
-        Bufor += "  " + playText + "  ";
-    }
-
-    // --- PRZYCISK: EXIT ---
+    // EXIT
     std::string exitText = "E X I T";
     int exitMenuX = (szerEkranu / 2) - (exitText.length() / 2);
+
+    // Ustawienie kursora
     Bufor += "\x1b[" + std::to_string(menuY + 3) + ";" + std::to_string(exitMenuX + 1) + "H";
 
-    if (selectedOption == 1) {
-        // TERAZ: Bordowe tło i żółte litery dla aktywnej opcji
-        Bufor += "\x1b[48;2;110;0;20m\x1b[38;2;255;220;0m";
-        Bufor += "> " + exitText + " <";
-    }
-    else {
-        // Nieaktywny (Czarne tło, szare litery)
-        Bufor += "\x1b[48;2;0;0;0m\x1b[38;2;120;120;120m";
-        Bufor += "  " + exitText + "  ";
-    }
+    Bufor += "\x1b[48;2;110;0;20m\x1b[38;2;255;220;0m";
+    Bufor += "> " + exitText + " <";
 
     Bufor += "\x1b[0m";
+}
+
+int obslugaEkranuStartowego() {
+    StartScreen menuStartowe;
+    grafika g1;
+    int wyborMenu = 0;
+    bool wMenu = true;
+
+    while (wMenu) {
+        if (GetAsyncKeyState('W') & 0x8000) wyborMenu = 0;
+        if (GetAsyncKeyState('S') & 0x8000) wyborMenu = 1;
+
+        if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
+            return wyborMenu; // 0 Start, 1 Exit
+        }
+
+        Bufor.clear();
+        menuStartowe.render(wyborMenu);
+        g1.wypiszBufor();
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
+    return 1;
+}
+
+bool obslugaEkranuSmierci(int& lives, float& hp, float& x, float& y, int mapa) {
+    DeathScreen deathScreen;
+    grafika g1;
+    int wyborMenu = 0;
+    bool wEkranie = true;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(400));
+
+    while (wEkranie) {
+        if (lives > 0) wyborMenu = 0;
+
+        if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
+            if (lives > 0) {
+                hp = 100.0f;
+                wEkranie = false;
+                return true; // Kontynuacja gry
+            }
+            else {
+                return false; // Game Over Exit
+            }
+        }
+
+        Bufor.clear();
+        deathScreen.render(wyborMenu, lives);
+        g1.wypiszBufor();
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
+    return true;
+}
+
+bool obslugaEkranuWygranej() {
+    YouWinScreen youWinScreen;
+    grafika g1;
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(400));
+
+    while (true) {
+        if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
+            return false; // EXIT
+        }
+
+        Bufor.clear();
+        youWinScreen.render(0);
+        g1.wypiszBufor();
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
 }

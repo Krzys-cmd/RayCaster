@@ -3,7 +3,6 @@
 
 class StartScreen {
 public:
-    // 0 podœwietla START, 1 podœwietla EXIT
     void render(int selectedOption);
 };
 
@@ -17,5 +16,11 @@ public:
     void render(int selectedOption);
 };
 
+int obslugaEkranuStartowego();
+
+// Zwraca true jeœli gracz kontynuuje, false jeœli Game Over 
+bool obslugaEkranuSmierci(int& lives, float& hp, float& x, float& y, int mapa);
+
+bool obslugaEkranuWygranej();
 
 #endif 
