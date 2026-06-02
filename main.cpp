@@ -80,7 +80,8 @@ int main()
         // rysowanie klatek gry
         S1.RayCaster(mapa);
         S1.PrzejsciaPrzezPokoje(mapa);
-
+       std::cout << NumerMapy;
+        //std::cout << AkutalnyProgresMapy;
         g1.BuforMapa();
         z1.ZombieBufor(listaZombie);
         stick.render();

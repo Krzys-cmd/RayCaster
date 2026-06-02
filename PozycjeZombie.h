@@ -6,13 +6,17 @@
 #include "ZmienGlob.h"
 
 inline bool ZombieZainicjowane[iloscMap] = {false};
+inline bool CzyPokonane[iloscMap] = {false};
 
 inline void InicjujZombie(int pietro) {
-    if (ZombieZainicjowane[pietro]) {
-        return;
-    }
 
     listaZombie.clear();
+
+    if (ZombieZainicjowane[pietro] && CzyPokonane[pietro]) {
+       return;
+    }
+
+
 
     if (pietro == 0) {
         // Mapa 0: Gracz pojawia się na (8.5, 1.5).

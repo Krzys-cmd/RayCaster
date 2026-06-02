@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1780333157 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
+1780427482 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\main.cpp
 	"fun.h"
 	"ZmienGlob.h"
 	"Mapa.h"
@@ -18,14 +18,14 @@
 1780235158 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\fun.h
 	"ZmienGlob.h"
 
-1780320366 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
+1780425929 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\zmienglob.h
 	<string>
 	<vector>
 	"zombie.h"
 
 1780242659 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\mapa.h
 
-1780333254 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
+1780424836 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\klasy.cpp
 	"ZmienGlob.h"
 	"Mapa.h"
 	<iostream>
@@ -82,7 +82,7 @@
 	<cmath>
 	<algorithm>
 
-1780235158 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\pozycjezombie.h
+1780428797 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\pozycjezombie.h
 	<vector>
 	"zombie.h"
 	"ZmienGlob.h"
@@ -98,7 +98,7 @@
 
 1780235158 c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\grafika.h
 
-1780243294 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\grafika.cpp
+1780427399 source:c:\users\krzys\onedrive\pulpit\raycaster(2)\raycaster\grafika.cpp
 	"grafika.h"
 	"Mapa.h"
 	"fun.h"

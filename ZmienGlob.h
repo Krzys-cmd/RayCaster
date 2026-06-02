@@ -9,6 +9,7 @@ inline const int SzerMapy = 16;
 inline const int WysMapy = 16;
 inline const int iloscMap = 3;
 inline int NumerMapy = 0;
+inline int AkutalnyProgresMapy = 0;
 
 
 inline float HpGracz = 100.0f;

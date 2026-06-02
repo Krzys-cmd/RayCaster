@@ -235,6 +235,8 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
         gracz::fPoziomZamknieciaDrzwi = 1.0;
         gracz::DrzwiOtworz = false;
         NumerMapy++;
+         CzyPokonane[NumerMapy-1] = true;
+        if(NumerMapy > AkutalnyProgresMapy) AkutalnyProgresMapy++;
         fGraczX = TabelaPozycjiNowegoPokoju[NumerMapy].x; //pozycje na przenosznie sie do pokoju dalej
         fGraczY = TabelaPozycjiNowegoPokoju[NumerMapy].y;
         InicjujZombie(NumerMapy);
@@ -247,7 +249,6 @@ void Silnik::PrzejsciaPrzezPokoje(int mapa[iloscMap][WysMapy][SzerMapy]) {
         fGraczX = TabelaPozycjiPowrotu[NumerMapy].x; // pozycje powrotu
         fGraczY = TabelaPozycjiPowrotu[NumerMapy].y;
         InicjujZombie(NumerMapy);
-
     }
     //std::cout << NumerMapy;
 }
