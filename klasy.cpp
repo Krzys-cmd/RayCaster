@@ -33,7 +33,7 @@ void gracz::akcjeGracza() {
 void gracz::sterowanieGracza() {
 
     float fChodSzyb = 0.075f; //predksoc chodzenia
-    float fObrSzyb = 0.05f; //predksoc obrotu
+    float fObrSzyb = 0.04f; //predksoc obrotu
 
 
     if (GetAsyncKeyState('A') & 0x8000) {
