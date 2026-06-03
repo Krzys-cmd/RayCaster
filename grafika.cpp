@@ -196,7 +196,8 @@ void Silnik::RayCaster(int mapa[iloscMap][WysMapy][SzerMapy]) {
                 }
             }//else if dla 2
         }//petla while
-        float fPrawdziwaOdl = fOdlegOdSciany * cosf(fKatPromienia - fGraczaKat);//tybie oko
+
+        float fPrawdziwaOdl = fOdlegOdSciany * cosf(fKatPromienia - fGraczaKat);//rybie oko
 
         float nSufit = (float)(wysokEkranu / 2.0) - (wysokEkranu / fPrawdziwaOdl);
         float nPodloga = wysokEkranu - nSufit;
