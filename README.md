@@ -3,7 +3,7 @@
 <h3 align="center">Terminal Raycaster 2.5D FPS</h3>
 
 <p align="center">
-A lightweight, retro 3D FPS engine based on Raycasting techniques, built from scratch in <b>C++17</b>. It renders pseudo-3D graphics directly in the Windows console using ASCII/ANSI characters and Unicode blocks.
+A lightweight, retro 3D FPS engine based on Raycasting techniques, built from scratch in <b>C++23</b>. It renders pseudo-3D graphics directly in the Windows console using ASCII/ANSI characters and Unicode blocks.
 </p>
 
 
