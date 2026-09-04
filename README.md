@@ -1,54 +1,54 @@
 
 
-<h3 align="center">Terminal Raycaster 3D FPS</h3>
+<h3 align="center">Terminal Raycaster 2.5D FPS</h3>
 
 <p align="center">
-  Lekki, retro silnik FPS 3D działający w oparciu o technikę Raycastingu, stworzony od zera w <b>C++17</b>. Renderuje grafikę pseudo 3D bezpośrednio w konsoli Windows wykorzystując znaki ASCII/ANSI i bloki Unicode.
+A lightweight, retro 3D FPS engine based on Raycasting techniques, built from scratch in <b>C++17</b>. It renders pseudo-3D graphics directly in the Windows console using ASCII/ANSI characters and Unicode blocks.
 </p>
 
-##  Główne funkcje
 
-| Funkcja | Opis |
+## Key Features
+
+| Feature | Description |
 |---|---|
-| **Silnik Raycasting** | Renderowanie perspektywy 2.5D, wykrywanie ścian, korekcja efektu "rybiego oka" i cieniowanie w terminalu. |
-| **Progresja map** | Obsługa wielu poziomów z różnymi układami pomieszczeń, interaktywnymi drzwiami i punktami odrodzenia. |
-| **Sztuczna Inteligencja (Zombie)** | Przeciwnicy ze śledzeniem gracza (Line-of-Sight), dynamicznym pozycjonowaniem (`PozycjeZombie.h`) i animacjami. |
-| **System Walki** | Strzelanie w czasie rzeczywistym, detekcja trafień, zarządzanie amunicją i animacje broni. |
-| **Własny Interfejs (UI)** | Interaktywne ekrany Start/Śmierć/Wygrana oraz HUD w czasie rzeczywistym wyświetlający zdrowie, amunicję i punkty. |
+| **Raycasting Engine** | 2.5D perspective rendering, wall collision detection, "fisheye" effect correction, and terminal shading. |
+| **Map Progression** | Multi-level support with varying room layouts, interactive doors, and spawn points. |
+| **Artificial Intelligence (Zombies)** | Enemies featuring Line-of-Sight player tracking, dynamic positioning (`ZombiePositions.h`), and animations. |
+| **Combat System** | Real-time shooting, hit registration, ammo management, and weapon animations. |
+| **Custom User Interface (UI)** | Interactive Start/Death/Victory screens and a real-time HUD displaying health, ammo, and score. ||
 
 
-##  Sterowanie
+## Controls
 
-| Klawisz | Akcja |
+| Key | Action |
 | :---: | :--- |
-| **W / S** | Ruch do przodu / do tyłu |
-| **A / D** | Obrót w lewo / w prawo |
-| **Spacja** | Strzał |
-| **E** | Otwieranie drzwi (koszt: 50 punktów) |
-| **Enter** | Wybór opcji w menu |
+| **W / S** | Move forward / backward |
+| **A / D** | Turn left / right |
+| **Space** | Shoot |
+| **E** | Open door (cost: 50 points) |
+| **Enter** | Select menu option |
 
-##  Architektura i Matematyka Silnika
+## Engine Architecture and Mathematics
 
-Silnik generuje dwuipółwymiarowe środowisko na podstawie dwuwymiarowej siatki mapy.
+The engine constructs a 2.5D environment based on a 2D map grid.
 
 ### Logika Raycastera
-Dla każdej kolumny pikseli na ekranie rzucany jest promień. Silnik wykorzystuje zoptymalizowany algorytm **DDA (Digital Differential Analyzer)** do szybkiego przeskakiwania między komórkami siatki mapy i wykrywania kolizji ze ścianami.
-* **Kąta promienia:** Kąt promienia jest wyznaczany na podstawie kąta patrzenia gracza, pola widzenia oraz aktualnej kolumny ekranu: `fKatPromienia = fStartAngle + ((float)i / iloscPromieni) * fFOV`.
-* **Korekcja "Fisheye":** Aby uniknąć sferycznego zniekształcenia obrazu (efekt rybiego oka), silnik nie używa prostej odległości euklidesowej. Zamiast tego oblicza **odległość prostopadłą** do płaszczyzny kamery:
-  `fPrawdziwaOdl = fOdlegOdSciany * cosf(fKatPromienia - fGraczaKat);`
-* **Cieniowanie:** Wysokość ściany rysowanej na ekranie jest odwrotnie proporcjonalna do odległości . Im większa odległość, tym ciemniejszy odcień ANSI jest przypisywany znakom 
+For every column on the screen, a ray is cast. The engine uses the Ray Marching method with a constant, small step size. The ray's distance is iteratively increased by a small value (0.002), and at each step, the coordinates are recalculated to check if the ray has hit a wall or a door on the map grid.
+* **Ray Angle:** Calculated based on player view angle, Field of View (FOV), and current screen column: `rayAngle = startAngle + ((float)i / rayCount) * fov`.
+* **"Fisheye" Correction:** To prevent spherical image distortion (fisheye effect), the engine avoids plain Euclidean distance, calculating **perpendicular distance** to the camera plane instead:
+  `trueDistance = wallDistance * cosf(rayAngle - playerAngle);`
+* **Shading:** Rendered wall height is inversely proportional to distance. Greater distances map to darker ANSI character shades.
 
+### Enemy Logic and Positioning (Zombies)
 
-### Logika i Pozycjonowanie Przeciwników (Zombie)
+Zombie screen positioning and rendering combine trigonometry, collision detection, and perspective scaling:
 
-Pozycja i renderowanie zombie na ekranie opierają się na połączeniu trygonometrii, detekcji kolizji oraz skalowania perspektywicznego:
+* **Movement and Player Tracking:** 
+  The zombie's path is determined by the angle to the player (`angleToPlayer` computed via `std::atan2`). If a zombie has line-of-sight and is within range $2.0 \le \text{distance} < 10.0$, it moves toward the player using steps derived from `sinf` and `cosf`.
 
-* **Ruch i Śledzenie Gracza:** 
-  Ścieżka poruszania się zombie jest wyznaczana na podstawie kąta do gracza (`fKatDoGracza` obliczonego za pomocą `std::atan2`). Jeśli zombie widzi gracza i znajduje się w zasięgu $2.0 \le \text{dystans} < 10.0$, przesuwa się w jego stronę z krokami wyliczanymi przez `sinf` oraz `cosf`.
+* **Wall Collision Detection:** 
+  Prior to moving, the engine checks collisions using a physical radius around the zombie (`radius = 0.3f`) at 4 bounding points. This prevents enemies from passing through walls during pursuit.
 
-* **Detekcja Kolizji ze Ścianami:** 
-  Przed wykonaniem ruchu silnik sprawdza kolizję promienia fizycznego zombie (`promien = 0.3f`) w 4 punktach wokół przeciwnika. Zapewnia to, że zombie nie przenika przez ściany mapy podczas pościgu.
-
-* **Projekcja na Ekran (`z.srodekX`):** 
-  Pozycja pozioma sprite'a w konsoli jest ustalana poprzez obliczenie różnicy kąta patrzenia gracza i kąta do zombie (`fRoznicaKata`), a następnie przeliczenie tej wartości na konkretną kolumnę ekranu w ramach pola widzenia (`fFOV`):
- ` z.srodekX = (fRoznicaKata + fFOV / 2.0f) / fFOV * szerEkranu;`
+* **Screen Projection (`z.centerX`):** 
+  The horizontal screen position of the sprite is calculated from the difference between the player's view angle and the angle to the zombie (`angleDiff`), mapped to a specific screen column within the Field of View (`fov`):
+  `z.centerX = (angleDiff + fov / 2.0f) / fov * screenWidth;`
