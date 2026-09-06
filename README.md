@@ -44,7 +44,7 @@ For every column on the screen, a ray is cast. The engine uses the Ray Marching 
 Zombie screen positioning and rendering combine trigonometry, collision detection, and perspective scaling:
 
 * **Movement and Player Tracking:** 
-  The zombie's path is determined by the angle to the player (`angleToPlayer` computed via `std::atan2`). If a zombie has line-of-sight and is within range $2.0 \le \text{distance} < 10.0$, it moves toward the player using steps derived from `sinf` and `cosf`.
+  The zombie's path is determined by the angle to the player (`angleToPlayer` computed via `std::atan2`). If a zombie has line-of-sight and is within range 2.0 ≤ distance < 10.0, it moves toward the player using steps derived from `sinf` and `cosf`.
 
 * **Wall Collision Detection:** 
   Prior to moving, the engine checks collisions using a physical radius around the zombie (`radius = 0.3f`) at 4 bounding points. This prevents enemies from passing through walls during pursuit.
