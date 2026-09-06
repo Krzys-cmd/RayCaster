@@ -1,4 +1,4 @@
-
+Note: This is an early university group project. I keep it public to showcase my first practical implementation of vector math, and 2.5D rendering. The codebase contains legacy team contributions and non-English variables.
 
 <h3 align="center">Terminal Raycaster 2.5D FPS</h3>
 
