@@ -32,7 +32,7 @@ A lightweight, retro 3D FPS engine based on Raycasting techniques, built from sc
 
 The engine constructs a 2.5D environment based on a 2D map grid.
 
-### Logika Raycastera
+### Raycastera Logic
 For every column on the screen, a ray is cast. The engine uses the Ray Marching method with a constant, small step size. The ray's distance is iteratively increased by a small value (0.002), and at each step, the coordinates are recalculated to check if the ray has hit a wall or a door on the map grid.
 * **Ray Angle:** Calculated based on player view angle, Field of View (FOV), and current screen column: `rayAngle = startAngle + ((float)i / rayCount) * fov`.
 * **"Fisheye" Correction:** To prevent spherical image distortion (fisheye effect), the engine avoids plain Euclidean distance, calculating **perpendicular distance** to the camera plane instead:
